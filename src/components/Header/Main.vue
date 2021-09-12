@@ -87,7 +87,7 @@
     </v-row>
     <template v-slot:extension>
       <v-tabs fixed-tabs background-color="#004FC6" align-with-title>
-        <v-tab v-for="i in tabs" :key="i.name">{{ i.name }}</v-tab>
+        <v-tab v-for="i in tabs" :key="i.name" :to="i.route">{{ i.name }}</v-tab>
       </v-tabs>
     </template>
   </v-app-bar>
@@ -99,14 +99,14 @@ export default {
       loading: false,
       items: [],
       tabs: [
-        { name: "New" },
-        { name: "JERSEYS" },
-        { name: "MENS" },
-        { name: "KIDS" },
-        { name: "WOMENS" },
-        { name: "HEADWEAR" },
-        { name: "BRANDS" },
-        { name: "SALE" },
+        { name: "New",route:'/categories/new' },
+        { name: "JERSEYS",route:'/categories/jerseys' },
+        { name: "MENS",route:'/categories/mens' },
+        // { name: "KIDS" ,route:'/categories/kids'},
+        { name: "WOMENS",route:'/categories/womens' },
+        // { name: "HEADWEAR" ,route:'/categories/headwear'},
+        { name: "BRANDS",route:'/categories/brands' },
+        { name: "SALE",route:'/categories/sale' },
       ],
       search: null,
       select: {
