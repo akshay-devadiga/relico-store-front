@@ -55,17 +55,11 @@
       </v-expansion-panels>
     </v-navigation-drawer>
     <v-main>
-      <v-container fluid class="ma-0 pa-0 red">
-        <v-row class="mt-3 mx-2">
-          <v-col>
-            <v-card
-              class="d-flex justify-space-between"
-              color="white"
-              flat
-              tile
-            >
-              <v-card class="pa-0" color="white" flat>
-                <v-breadcrumbs class="px-0 pl-1" :items="items">
+      <v-container fluid class="ma-0 pa-0">
+        <v-row class="mt-3" justify="space-between">
+          <v-col cols=1>
+              <v-card color="white" flat>
+                <v-breadcrumbs :items="items">
                   <template v-slot:divider>
                     <v-icon>mdi-chevron-right</v-icon>
                   </template>
@@ -79,7 +73,10 @@
                   </template>
                 </v-breadcrumbs>
               </v-card>
-              <v-card max-width="200" class="pa-0" color="white" flat>
+
+               </v-col>
+                    <v-col cols="2" >
+              <v-card max-width="200" class="pa-0 d-flex" color="white" flat>
                 <v-select
                   v-model="selected"
                   :items="items2"
@@ -90,7 +87,6 @@
               <!-- <v-card v-for="n in 3" :key="n" class="pa-2" outlined tile>
                 justify-space-between
               </v-card> -->
-            </v-card>
           </v-col>
           <!-- <v-col class="red" cols="4">
             <v-breadcrumbs :items="items">
@@ -110,7 +106,7 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <products />
+            <products :products="products" />
           </v-col>
         </v-row>
       </v-container>
@@ -123,12 +119,21 @@
   </div>
 </template>
 <script>
+import {
+  getProductsByCategory
+} from "../../../ApiServices";
 import Products from "./Products.vue";
 export default {
   components: {
     Products,
   },
   methods: {},
+  async created(){
+      this.products = await getProductsByCategory();
+      this.products.forEach(product=>{
+          product.Images = JSON.parse(product.Images);
+      });
+  },
   data() {
     return {
       price: 50,
@@ -147,6 +152,7 @@ export default {
       ],
       selected: "Newest",
       items2: ["Newest", "Price (Low to High)", "Price (High to Low)"],
+      products:[]
     };
   },
 };
