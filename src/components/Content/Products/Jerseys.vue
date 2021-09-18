@@ -57,107 +57,84 @@
     <v-main>
       <v-container fluid class="ma-0 pa-0">
         <v-row class="mt-3" justify="space-between">
-          <v-col cols=1>
-              <v-card color="white" flat>
-                <v-breadcrumbs :items="items">
-                  <template v-slot:divider>
-                    <v-icon>mdi-chevron-right</v-icon>
-                  </template>
-                  <template v-slot:item="{ item }">
-                    <v-breadcrumbs-item
-                      :href="item.href"
-                      :disabled="item.disabled"
-                    >
-                      {{ item.text.toUpperCase() }}
-                    </v-breadcrumbs-item>
-                  </template>
-                </v-breadcrumbs>
-              </v-card>
-
-               </v-col>
-                    <v-col cols="2" >
-              <v-card max-width="200" class="pa-0 d-flex" color="white" flat>
-                <v-select
-                  :value="selectedSubFilter"
-                  :items="subFilter"
-                  item-text="name"
-                  @change="setSubFilter"
-                  return-object
-                  dense
-                  solo
-                ></v-select>
-              </v-card>
-              <!-- <v-card v-for="n in 3" :key="n" class="pa-2" outlined tile>
-                justify-space-between
-              </v-card> -->
+          <v-col cols="1">
+            <v-card color="white" flat>
+              <v-breadcrumbs :items="items">
+                <template v-slot:divider>
+                  <v-icon>mdi-chevron-right</v-icon>
+                </template>
+                <template v-slot:item="{ item }">
+                  <v-breadcrumbs-item
+                    :href="item.href"
+                    :disabled="item.disabled"
+                  >
+                    {{ item.text.toUpperCase() }}
+                  </v-breadcrumbs-item>
+                </template>
+              </v-breadcrumbs>
+            </v-card>
           </v-col>
-          <!-- <v-col class="red" cols="4">
-            <v-breadcrumbs :items="items">
-              <template v-slot:divider>
-                <v-icon>mdi-chevron-right</v-icon>
-              </template>
-              <template v-slot:item="{ item }">
-                <v-breadcrumbs-item :href="item.href" :disabled="item.disabled">
-                  {{ item.text.toUpperCase() }}
-                </v-breadcrumbs-item>
-              </template>
-            </v-breadcrumbs>
+          <v-col cols="2">
+            <v-card max-width="200" class="pa-0 d-flex" color="white" flat>
+              <v-select
+                :value="selectedSubFilter"
+                :items="subFilter"
+                item-text="name"
+                @change="setSubFilter"
+                return-object
+                dense
+                solo
+              ></v-select>
+            </v-card>
           </v-col>
-          <v-col class="blue" cols="2" offset-sm-8>
-            <v-select v-model="selected" :items="items2" dense solo></v-select>
-          </v-col> -->
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <products :products="products" :isProcessing="isProcessing"/>
+            <products :products="products" :isProcessing="isProcessing" />
           </v-col>
         </v-row>
       </v-container>
-      <!-- Provides the application the proper gutter -->
-      <!-- <v-container fluid>
-          If using vue-router 
-      <products /> <router-view></router-view> 
-    </v-container> -->
     </v-main>
   </div>
 </template>
 <script>
-import {
-  getProductsByCategory
-} from "../../../ApiServices";
+import { getProductsByCategory } from "../../../ApiServices";
 import Products from "./Products.vue";
-import {mapActions,mapGetters} from "vuex";
-import {processSubFilter} from "../../../helpers/commonHelper"
+import { mapActions, mapGetters } from "vuex";
+import { processSubFilter } from "../../../helpers/commonHelper";
 export default {
   components: {
     Products,
   },
-   methods: {
-    ...mapActions(['setSubFilter']), 
-    async processProducts(){
-         this.isProcessing = true;
-      this.products = await getProductsByCategory('Jerseys',this.selectedCountryCode.id);
-      this.products.forEach(product=>{
-          product.Images = JSON.parse(product.Images);
+  methods: {
+    ...mapActions(["setSubFilter"]),
+    async processProducts() {
+      this.isProcessing = true;
+      this.products = await getProductsByCategory(
+        "Jerseys",
+        this.selectedCountryCode.id
+      );
+      this.products.forEach((product) => {
+        product.Images = JSON.parse(product.Images);
       });
-       this.isProcessing = false;
-    }
-  },
-  computed:{
-      ...mapGetters(['selectedCountryCode','selectedSubFilter', 'subFilter'])
-  },
-  async created(){
-      await this.processProducts();
-  },
-    watch:{
-    async selectedCountryCode(){
-       await this.processProducts();
-    },
-     selectedSubFilter(filter){
-          this.isProcessing = true;
-     this.products = processSubFilter(filter.id,this.products);
       this.isProcessing = false;
-   }
+    },
+  },
+  computed: {
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter"]),
+  },
+  async created() {
+    await this.processProducts();
+  },
+  watch: {
+    async selectedCountryCode() {
+      await this.processProducts();
+    },
+    selectedSubFilter(filter) {
+      this.isProcessing = true;
+      this.products = processSubFilter(filter.id, this.products);
+      this.isProcessing = false;
+    },
   },
   data() {
     return {
@@ -177,8 +154,8 @@ export default {
       ],
       selected: "Newest",
       items2: ["Newest", "Price (Low to High)", "Price (High to Low)"],
-      products:[],
-      isProcessing:false
+      products: [],
+      isProcessing: false,
     };
   },
 };
@@ -188,7 +165,8 @@ export default {
   max-height: unset !important;
   z-index: 4 !important;
 }
-::v-deep .theme--light.v-navigation-drawer:not(.v-navigation-drawer--floating)
+::v-deep
+  .theme--light.v-navigation-drawer:not(.v-navigation-drawer--floating)
   .v-navigation-drawer__border {
   display: none !important;
 }

@@ -1,19 +1,17 @@
 <template>
   <div>
     <v-row class="ma-3" v-if="isProcessing">
-    <v-col v-for="i in 10" :key="i"
-          cols="5" md="3"
-        >
-          <v-skeleton-loader
-            v-bind="attrs"
-            class="mx-auto"
-            max-width="250"
-            type="card-avatar, article, actions"
-          ></v-skeleton-loader>
-    </v-col>   
+      <v-col v-for="i in 10" :key="i" cols="5" md="3">
+        <v-skeleton-loader
+          v-bind="attrs"
+          class="mx-auto"
+          max-width="250"
+          type="card-avatar, article, actions"
+        ></v-skeleton-loader>
+      </v-col>
     </v-row>
     <v-row class="ma-3" v-else>
-        <v-col v-for="product in products" :key="product.id" cols="5" md="3">
+      <v-col v-for="product in products" :key="product.id" cols="5" md="3">
         <v-card class="mx-auto" max-width="350">
           <v-hover v-slot="{ hover }">
             <v-carousel
@@ -29,7 +27,9 @@
           </v-hover>
           <v-card-text>
             <v-row align="left" justify="space-between">
-              <v-col class="text-h5 text-align-left" cols="5">  {{product.brand}} </v-col>
+              <v-col class="text-h5 text-align-left" cols="5">
+                {{ product.brand }}
+              </v-col>
               <v-col class="align-self-center" cols="3">
                 <v-img
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png"
@@ -42,11 +42,16 @@
                 <v-list-item-title class="text-h6 grey--text text-align-left">
                   <!-- Nike Men's T Shirt, Nike T Shirt Nike Men's T Shirt, Nike T
                   Shirt -->
-                  {{product.name}}
+                  {{ product.name }}
                 </v-list-item-title>
-                <v-list-item-subtitle class="text-align-left">{{product.color}}</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-align-left">{{
+                  product.color
+                }}</v-list-item-subtitle>
                 <v-list-item-subtitle class="font-weight-bold text-align-left"
-                  >{{product.currencySymbol}} {{product.price}} <span class="font-weight-light product-discount">({{product.discount * 10}}{{'% OFF'}})</span></v-list-item-subtitle
+                  >{{ product.currencySymbol }} {{ product.price }}
+                  <span class="font-weight-light product-discount"
+                    >({{ product.discount * 10 }}{{ "% OFF" }})</span
+                  ></v-list-item-subtitle
                 >
               </v-list-item-content>
             </v-list-item>
@@ -81,43 +86,31 @@ export default {
       this.isSizeSelected = true;
     },
   },
-  props:{
-    products:{
+  props: {
+    products: {
       type: Array,
-      default:null
+      default: null,
     },
-    isProcessing:{
+    isProcessing: {
       type: Boolean,
-      default:false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       selection: null,
       sizes: ["XS", "SM", "XL", "XXL"],
       isSizeSelected: false,
-      items: [
-        {
-          id: 1,
-          src:
-            "https://5.imimg.com/data5/HQ/DB/MY-14081937/nike-men-s-t-shirt-500x500.jpg",
-        },
-        {
-          id: 2,
-          src:
-            "https://i.sportisimo.com/products/images/1056/1056139/450x450/nike-ar6029-861-m-nk-dry-tee-dfc-crew-solid_1.jpg",
-        },
-      ],
     };
   },
 };
 </script>
 <style scoped>
-.text-align-left{
-    text-align: left !important;
+.text-align-left {
+  text-align: left !important;
 }
 
-.product-discount{
-    color: #ff905a;
+.product-discount {
+  color: #ff905a;
 }
 </style>
