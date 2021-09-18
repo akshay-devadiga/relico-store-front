@@ -148,4 +148,16 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+/* .v-select__selection,
+.v-select__selection--comma, */
+::v-deep .product-search .v-select__slot input {
+  color: black !important;
+
+}
+
+ ::v-deep .product-search .v-select__slot .v-input__append-inner{
+ display:none;
+}
+</style>
 <style scoped src="../../assets/emoji.css"/> 
