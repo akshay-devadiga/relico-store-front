@@ -11,16 +11,21 @@ export const processSubFilter = (filterType,products) => {
 }
 
 
+export const getAppliedFilters = (filterOptions) => {
+
+ return filterOptions.map(filterOption=>{
+    let filterType = filterTypes.find(filtertype=>filtertype.name == filterOption.name);
+    return { name:filterOption.name,type:filterType.value, subfilters:filterOption.subfilters = filterOption.subfilters.filter(subFilter=>subFilter.value)};
+}).filter(filterOption=>filterOption.subfilters.length>0);
+
+}
+
 export const filterProducts = (filterOptions,products) => {
     /*
         Generates set of applied filters
     */
-   let appliedFilters = filterOptions.map(filterOption=>{
-        let filterType = filterTypes.find(filtertype=>filtertype.name == filterOption.name);
-        return { name:filterOption.name,type:filterType.value, subfilters:filterOption.subfilters = filterOption.subfilters.filter(subFilter=>subFilter.value)};
-  }).filter(filterOption=>filterOption.subfilters.length>0);
+   let appliedFilters = getAppliedFilters(filterOptions);
  
-
    /*
         Filters the products
    */

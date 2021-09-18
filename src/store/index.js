@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { getProductsByCategory,getSizesById,getColors,getSizes,getGenders,getBrands } from "../ApiServices";
-import { processSubFilter,filterProducts } from "../helpers/commonHelper";
+import { processSubFilter,filterProducts,getAppliedFilters } from "../helpers/commonHelper";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -17,7 +17,8 @@ export default new Vuex.Store({
     search:'',
     appliedFilters:[],
     filterOptions:[],
-    isProductsLoading: false 
+    isProductsLoading: false,
+    isFilterApplied:false
   },
   mutations: {
     buildFilterOptions(state, filterOptions) {
@@ -46,6 +47,7 @@ export default new Vuex.Store({
         state.products = products;
     },
     updateFillters(state, filterOptions){
+        state.isFilterApplied=true;
         state.filterOptions=filterOptions;
     },
   },
@@ -108,7 +110,7 @@ export default new Vuex.Store({
     selectedSubFilter: state =>state.selectedSubFilter,
     products:state =>{
         let filteredOptions = JSON.parse(JSON.stringify(state.filterOptions));
-        return filterProducts(filteredOptions,state.products)
+        return state.isFilterApplied && getAppliedFilters(filteredOptions).length>0? filterProducts(filteredOptions,state.products) : state.products;
     },
     search:state =>state.search,
     filterOptions:state =>state.filterOptions,
