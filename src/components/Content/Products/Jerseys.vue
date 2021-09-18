@@ -36,7 +36,7 @@
                   >
                     <template v-slot:default>
                       <v-list-item-content>
-                        <v-list-item-title v-text="itemFilter.name"></v-list-item-title>
+                        <v-list-item-title v-text="itemFilter.Name"></v-list-item-title>
                       </v-list-item-content>
 
                       <v-list-item-action>
