@@ -27,6 +27,7 @@
         <v-card color="black" class="pa-1" flat>
           <v-autocomplete
             background-color="white"
+            color="green"
             :value="search"
             :items="products"
             item-text="name"
@@ -35,13 +36,13 @@
             flat
             hide-details
             hide-no-data
-            color="black"
             placeholder="SEARCH FOR JERSEY’S"
             solo
             dense
             append-icon="false"
             height="30"
-            class="product-search rounded-lg"
+            style="color:black !important"
+            class="product-search rounded-lg black--text"
           >
             <template v-slot:append-outer>
               <v-slide-x-reverse-transition mode="out-in">
@@ -130,6 +131,9 @@ export default {
         },
       ],
     };
+  },
+  created(){
+    console.log(this)
   },
   computed:{
     ...mapGetters(['selectedCountryCode','search','products'])

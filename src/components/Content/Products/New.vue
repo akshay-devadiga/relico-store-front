@@ -60,22 +60,10 @@
     </v-navigation-drawer>
     <v-main>
       <v-container fluid class="ma-0 pa-0">
-        <v-row class="mt-3" justify="space-between">
+          <v-row class="mx-3 mt-3" justify="space-between">
           <v-col cols="1">
             <v-card color="white" flat>
-              <v-breadcrumbs :items="items">
-                <template v-slot:divider>
-                  <v-icon>mdi-chevron-right</v-icon>
-                </template>
-                <template v-slot:item="{ item }">
-                  <v-breadcrumbs-item
-                    :href="item.href"
-                    :disabled="item.disabled"
-                  >
-                    {{ item.text.toUpperCase() }}
-                  </v-breadcrumbs-item>
-                </template>
-              </v-breadcrumbs>
+                <span class="primary--text caption"> {{$route.name.toUpperCase()}}</span>
             </v-card>
           </v-col>
           <v-col cols="2">
