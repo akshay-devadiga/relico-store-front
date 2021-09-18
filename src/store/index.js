@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getProductsByCategory } from "../ApiServices";
+import { getProductsByCategory,getSizesById } from "../ApiServices";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -47,9 +47,9 @@ export default new Vuex.Store({
             category,
             selectedCountryCode
           );
-          products.forEach((product) => {
-            product.Images = JSON.parse(product.Images);
-          });
+          await ApiHelper.processProducts(products);
+          
+          console.log(products);
            context.commit('getProducts',products);
          }
          catch (error) {
@@ -65,3 +65,18 @@ export default new Vuex.Store({
     search:state =>state.search
   }
 });
+
+const ApiHelper = {
+    async processProducts(products){
+        for(let product of products) {
+            product.Images = JSON.parse(product.Images);
+            product.isProductSelected = false
+            product.selectedSize = ''
+            var sizesOb = await getSizesById(product.id);
+            if(sizesOb){
+                product.sizes = JSON.parse(sizesOb[0].sizevariants);
+            }
+        }
+    }
+
+}

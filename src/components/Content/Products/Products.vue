@@ -57,19 +57,19 @@
             </v-list-item>
 
             <v-chip-group
-              v-model="selection"
+              v-model="product.selectedSize"
               active-class="primary--text text--accent-4"
-              @change="showCart"
+              @change="showCart(product)"
+              :column="true"
             >
-              <v-chip label v-for="size in sizes" :key="size" :value="size">
-                {{ size }}
+              <v-chip label v-for="size in product.sizes" :key="size" :value="size">
+                {{ size.Name }}
               </v-chip>
             </v-chip-group>
           </v-card-text>
 
           <v-divider></v-divider>
-
-          <v-card-actions v-show="isSizeSelected">
+          <v-card-actions v-show="product.isProductSelected">
             <v-btn block class="white--text" color="primary accent-4">
               Add to Cart
             </v-btn>
@@ -82,8 +82,8 @@
 <script>
 export default {
   methods: {
-    showCart() {
-      this.isSizeSelected = true;
+    showCart(item) {
+      item.isProductSelected = !item.isProductSelected ;
     },
   },
   props: {
@@ -99,8 +99,7 @@ export default {
   data() {
     return {
       selection: null,
-      sizes: ["XS", "SM", "XL", "XXL"],
-      isSizeSelected: false,
+      sizes: ["XS", "SM", "XL", "XXL"]
     };
   },
 };
