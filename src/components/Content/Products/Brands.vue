@@ -27,27 +27,27 @@
               </v-col>
             </v-row>
             <v-list v-else shaped>
-              <v-list-item-group multiple>
-                <template v-for="(item, i) in item.subfilters">
+             <v-list-item-group multiple>
+                <template v-for="(itemFilter, i) in item.subfilters">
                   <v-list-item
                     :key="`item-${i}`"
-                    :value="item"
+                    :value="itemFilter"
                     active-class="deep-purple--text text--accent-4"
                   >
-                    <template v-slot:default="{ active }">
+                    <template v-slot:default>
                       <v-list-item-content>
-                        <v-list-item-title v-text="item"></v-list-item-title>
+                        <v-list-item-title v-text="itemFilter.Name"></v-list-item-title>
                       </v-list-item-content>
 
                       <v-list-item-action>
                         <v-checkbox
-                          :input-value="active"
+                          v-model="itemFilter.value"
+                          @change="updateSelectedFilters"
                           color="deep-purple accent-4"
                         ></v-checkbox>
                       </v-list-item-action>
                     </template>
                   </v-list-item>
-                 
                 </template>
               </v-list-item-group>
             </v-list>
@@ -98,16 +98,19 @@ export default {
     Products,
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter", "products","isProductsLoading"]),
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter", "products","isProductsLoading","filterOptions"]),
      localProducts(){
         return this.products;
       }
  },
   methods: {
-    ...mapActions(["setSubFilter","getProducts"]),
+    ...mapActions(["setSubFilter","getProducts","updateFillters"]),
     async processProducts() {
       await this.getProducts({category:"brands",selectedCountryCode:this.selectedCountryCode});
     },
+    updateSelectedFilters(){
+       this.updateFillters(this.filterOptions);
+    }
   },
   async created() {
     await this.processProducts();
@@ -126,12 +129,6 @@ export default {
           disabled: false,
           href: "breadcrumbs_link_1",
         },
-      ],
-      filterOptions: [
-        { name: "Gender", subfilters: ["Men", "Women"] },
-        { name: "Brands", subfilters: ["Nike", "Adidas"] },
-        { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
-        { name: "Price", subfilters: ["XL", "SM", "XXL", "XS"] },
       ],
       isProcessing: false,
     };

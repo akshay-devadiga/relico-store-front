@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getProductsByCategory,getSizesById } from "../ApiServices";
+import { getProductsByCategory,getSizesById,getColors,getSizes,getGenders,getBrands } from "../ApiServices";
 import { processSubFilter } from "../helpers/commonHelper";
 Vue.use(Vuex);
 
@@ -16,15 +16,21 @@ export default new Vuex.Store({
     products:[],
     search:'',
     appliedFilters:[],
-    filterOptions: [
-        { name: "Gender", subfilters: [{name:"Men",value:false},  {name:"Women",value:false}] },
-        { name: "Brands", subfilters: [{name:"Nike",value:false},{name:"Adidas",value:false}] },
-        { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
-        { name: "Price" },
-      ],
+    // filterOptions: [
+    //     { name: "Gender", subfilters: [{name:"Men",value:false},  {name:"Women",value:false}] },
+    //     { name: "Brands", subfilters: [{name:"Nike",value:false},{name:"Adidas",value:false}] },
+    //     { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
+    //     { name: "Price" },
+    //   ],
+    filterOptions:[],
     isProductsLoading: false 
   },
   mutations: {
+    buildFilterOptions(state, filterOptions) {
+        state.filterOptions = filterOptions;
+        console.log(state.filterOptions);
+        
+    },
     setProductsLoader(state,loader) {
         state.isProductsLoading = loader;
     },
@@ -52,6 +58,23 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    async buildFilterOptions (context) {
+        let filterOptions = [];
+        try {
+            let sizes = await getSizes();
+            filterOptions.push({name:"Sizes", subfilters:sizes});
+            let brands = await getBrands();
+            filterOptions.push({name:"Brands", subfilters:brands});
+            let colors = await getColors();
+            filterOptions.push({name:"Colors", subfilters:colors});
+            let genders = await getGenders();
+            filterOptions.push({name:"Gender", subfilters:genders});
+          context.commit('buildFilterOptions',filterOptions);
+         }
+         catch (error) {
+          console.log(error);
+        }
+     },
     setProductsLoader(context,payload) {
         context.commit('setProductsLoader',payload);
     },

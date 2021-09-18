@@ -2,10 +2,16 @@
   <router-view></router-view>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
   components: {
   },
-  methods: {},
+  methods: {
+    ...mapActions(['buildFilterOptions'])
+  },
+  created(){
+    this.buildFilterOptions();
+  },
   data() {
     return {
       price: 50,
@@ -15,13 +21,7 @@ export default {
           disabled: false,
           href: "breadcrumbs_link_1",
         },
-      ],
-      filterOptions: [
-        { name: "Gender", subfilters: ["Men", "Women"] },
-        { name: "Brands", subfilters: ["Nike", "Adidas"] },
-        { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
-        { name: "Price", subfilters: ["XL", "SM", "XXL", "XS"] },
-      ],
+      ]
     };
   },
 };
