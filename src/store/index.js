@@ -12,9 +12,13 @@ export default new Vuex.Store({
     },
     subFilter:[{name:"Newest",id:1}, {name:"Price (Low to High)",id:2}, {name:"Price (High to Low)",id:3}],
     selectedSubFilter:{name:"Newest",id:1},
-    products:[]
+    products:[],
+    search:''
   },
   mutations: {
+    setSearch(state,search) {
+        state.search = search;
+    },
     setCountryCode(state,selectedCountryCode) {
         state.selectedCountryCode = selectedCountryCode;
     },
@@ -26,6 +30,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setSearch(context,payload) {
+        context.commit('setSearch',payload);
+    },
     setCountryCode(context,payload) {
      context.commit('setCountryCode',payload);
     },
@@ -54,6 +61,7 @@ export default new Vuex.Store({
     selectedCountryCode: state =>state.selectedCountryCode,
     subFilter: state =>state.subFilter,
     selectedSubFilter: state =>state.selectedSubFilter,
-    products:state =>state.products
+    products:state =>state.products,
+    search:state =>state.search
   }
 });

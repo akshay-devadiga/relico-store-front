@@ -7,7 +7,7 @@
       clipped
       app
     >
-      <v-expansion-panels accordion class="mt-5 px-0 mx-2">
+      <v-expansion-panels accordion flat class="mt-5 px-0 mx-2">
         <v-expansion-panel v-for="(item, i) in filterOptions" :key="i">
           <v-expansion-panel-header disable-icon-rotate>
             <span class="font-weight-bold">{{ item.name }}</span>
@@ -51,6 +51,10 @@
               </v-list-item-group>
             </v-list>
           </v-expansion-panel-content>
+              <v-divider
+                v-if="i != filterOptions.length-1"
+                :key="i"
+              ></v-divider>
         </v-expansion-panel>
       </v-expansion-panels>
     </v-navigation-drawer>
@@ -114,7 +118,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products"]),
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products","search"]),
+     filteredProducts() {
+        return this.products.filter(movie => movie.name.toLowerCase().includes(this.search.toLowerCase()))
+     }
   },
   async created() {
     await this.processProducts();

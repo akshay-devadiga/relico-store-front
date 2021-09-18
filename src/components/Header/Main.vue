@@ -27,10 +27,10 @@
         <v-card color="black" class="pa-1" flat>
           <v-autocomplete
             background-color="white"
-            v-model="select"
-            :loading="loading"
-            :items="items"
-            :search-input.sync="search"
+            :value="search"
+            :items="products"
+            item-text="name"
+            @input="setSearch"
             cache-items
             flat
             hide-details
@@ -111,69 +111,7 @@ export default {
         { name: "BRANDS",route:'/categories/brands' },
         { name: "SALE",route:'/categories/sale' },
       ],
-      search: null,
       select: null,
-      states: [
-        "Alabama",
-        "Alaska",
-        "American Samoa",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "District of Columbia",
-        "Federated States of Micronesia",
-        "Florida",
-        "Georgia",
-        "Guam",
-        "Hawaii",
-        "Idaho",
-        "Illinois",
-        "Indiana",
-        "Iowa",
-        "Kansas",
-        "Kentucky",
-        "Louisiana",
-        "Maine",
-        "Marshall Islands",
-        "Maryland",
-        "Massachusetts",
-        "Michigan",
-        "Minnesota",
-        "Mississippi",
-        "Missouri",
-        "Montana",
-        "Nebraska",
-        "Nevada",
-        "New Hampshire",
-        "New Jersey",
-        "New Mexico",
-        "New York",
-        "North Carolina",
-        "North Dakota",
-        "Northern Mariana Islands",
-        "Ohio",
-        "Oklahoma",
-        "Oregon",
-        "Palau",
-        "Pennsylvania",
-        "Puerto Rico",
-        "Rhode Island",
-        "South Carolina",
-        "South Dakota",
-        "Tennessee",
-        "Texas",
-        "Utah",
-        "Vermont",
-        "Virgin Island",
-        "Virginia",
-        "Washington",
-        "West Virginia",
-        "Wisconsin",
-        "Wyoming",
-      ],
       countries: [
         {
           name: "USA",
@@ -194,25 +132,15 @@ export default {
     };
   },
   computed:{
-    ...mapGetters(['selectedCountryCode'])
+    ...mapGetters(['selectedCountryCode','search','products'])
   },
-  watch: {
-    search(val) {
-      val && val !== this.select && this.querySelections(val);
-    },
+  watch:{
+    search(val){
+      console.log(val);
+    }
   },
   methods: {
-    ...mapActions(['setCountryCode']),
-    querySelections(v) {
-      this.loading = true;
-      // Simulated ajax query
-      setTimeout(() => {
-        this.items = this.states.filter((e) => {
-          return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1;
-        });
-        this.loading = false;
-      }, 500);
-    },
+    ...mapActions(['setCountryCode','setSearch']),
   },
 };
 </script>
