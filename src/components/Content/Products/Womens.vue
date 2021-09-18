@@ -28,20 +28,21 @@
             </v-row>
             <v-list v-else shaped>
               <v-list-item-group multiple>
-                <template v-for="(item, i) in item.subfilters">
+                <template v-for="(itemFilter, i) in item.subfilters">
                   <v-list-item
                     :key="`item-${i}`"
-                    :value="item"
+                    :value="itemFilter"
                     active-class="deep-purple--text text--accent-4"
                   >
-                    <template v-slot:default="{ active }">
+                    <template v-slot:default>
                       <v-list-item-content>
-                        <v-list-item-title v-text="item"></v-list-item-title>
+                        <v-list-item-title v-text="itemFilter.name"></v-list-item-title>
                       </v-list-item-content>
 
                       <v-list-item-action>
                         <v-checkbox
-                          :input-value="active"
+                          v-model="itemFilter.value"
+                          @change="updateSelectedFilters"
                           color="deep-purple accent-4"
                         ></v-checkbox>
                       </v-list-item-action>
@@ -82,7 +83,7 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <products :products="products" :isProcessing="isProcessing" />
+            <products :products="localProducts" :isProcessing="isProductsLoading" />
           </v-col>
         </v-row>
       </v-container>
@@ -92,21 +93,24 @@
 <script>
 import Products from "./Products.vue";
 import { mapActions, mapGetters } from "vuex";
-import { processSubFilter } from "../../../helpers/commonHelper";
 export default {
   components: {
     Products,
   },
   methods: {
-    ...mapActions(["setSubFilter","getProducts"]),
+    ...mapActions(["setSubFilter","getProducts","updateFillters"]),
     async processProducts() {
-      this.isProcessing = true;
       await this.getProducts({category:"womens",selectedCountryCode:this.selectedCountryCode});
-      this.isProcessing = false;
     },
+    updateSelectedFilters(){
+       this.updateFillters(this.filterOptions);
+    }
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products"]),
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products",'filterOptions','isProductsLoading']),
+    localProducts(){
+        return this.products;
+    }
   },
   async created() {
     await this.processProducts();
@@ -114,11 +118,6 @@ export default {
   watch: {
     async selectedCountryCode() {
       await this.processProducts();
-    },
-    selectedSubFilter(filter) {
-      this.isProcessing = true;
-      this.products = processSubFilter(filter.id, this.products);
-      this.isProcessing = false;
     },
   },
   data() {
@@ -131,13 +130,6 @@ export default {
           href: "breadcrumbs_link_1",
         },
       ],
-      filterOptions: [
-        { name: "Gender", subfilters: ["Men", "Women"] },
-        { name: "Brands", subfilters: ["Nike", "Adidas"] },
-        { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
-        { name: "Price", subfilters: ["XL", "SM", "XXL", "XS"] },
-      ],
-      isProcessing: false,
     };
   },
 };

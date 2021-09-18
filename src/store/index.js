@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { getProductsByCategory,getSizesById } from "../ApiServices";
+import { processSubFilter } from "../helpers/commonHelper";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -13,9 +14,20 @@ export default new Vuex.Store({
     subFilter:[{name:"Newest",id:1}, {name:"Price (Low to High)",id:2}, {name:"Price (High to Low)",id:3}],
     selectedSubFilter:{name:"Newest",id:1},
     products:[],
-    search:''
+    search:'',
+    appliedFilters:[],
+    filterOptions: [
+        { name: "Gender", subfilters: [{name:"Men",value:false},  {name:"Women",value:false}] },
+        { name: "Brands", subfilters: [{name:"Nike",value:false},{name:"Adidas",value:false}] },
+        { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
+        { name: "Price" },
+      ],
+    isProductsLoading: false 
   },
   mutations: {
+    setProductsLoader(state,loader) {
+        state.isProductsLoading = loader;
+    },
     setSearch(state,search) {
         state.search = search;
     },
@@ -24,12 +36,31 @@ export default new Vuex.Store({
     },
     setSubFilter(state, selectedSubFilter) {
         state.selectedSubFilter = selectedSubFilter;
+        state.isProductsLoading = true;
+        state.products = processSubFilter(selectedSubFilter.id, state.products);
+        state.isProductsLoading = false;
     },
     getProducts(state, products) {
         state.products = products;
-    }
+        state.isProductsLoading = false;
+    },
+    updateProducts(state, products) {
+        state.products = products;
+    },
+    updateFillters(state, filterOptions){
+        state.filterOptions=filterOptions;
+    },
   },
   actions: {
+    setProductsLoader(context,payload) {
+        context.commit('setProductsLoader',payload);
+    },
+    updateProducts(context,payload) {
+        context.commit('updateProducts',payload);
+    },
+    updateFillters(context,payload) {
+        context.commit('updateFillters',payload);
+    },
     setSearch(context,payload) {
         context.commit('setSearch',payload);
     },
@@ -40,6 +71,7 @@ export default new Vuex.Store({
      context.commit('setSubFilter',payload);
     },
     async getProducts (context,payload) {
+        context.commit('setProductsLoader',true);
         let category = payload.category;
         let selectedCountryCode = payload.selectedCountryCode.id;
         try {
@@ -48,9 +80,7 @@ export default new Vuex.Store({
             selectedCountryCode
           );
           await ApiHelper.processProducts(products);
-          
-          console.log(products);
-           context.commit('getProducts',products);
+          context.commit('getProducts',products);
          }
          catch (error) {
           console.log(error);
@@ -62,7 +92,9 @@ export default new Vuex.Store({
     subFilter: state =>state.subFilter,
     selectedSubFilter: state =>state.selectedSubFilter,
     products:state =>state.products,
-    search:state =>state.search
+    search:state =>state.search,
+    filterOptions:state =>state.filterOptions,
+    isProductsLoading:state =>state.isProductsLoading
   }
 });
 

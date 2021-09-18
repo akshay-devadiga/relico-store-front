@@ -11,7 +11,7 @@
       </v-col>
     </v-row>
     <v-row class="ma-3" v-else>
-      <v-col v-for="product in products" :key="product.id" cols="5" md="3">
+      <v-col v-for="product in products" :key="product" cols="5" md="3">
         <v-card class="mx-auto" max-width="350">
           <v-hover v-slot="{ hover }">
             <v-carousel

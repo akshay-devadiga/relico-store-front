@@ -82,7 +82,7 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <products :products="products" :isProcessing="isProcessing" />
+            <products :products="localProducts" :isProcessing="isProductsLoading" />
           </v-col>
         </v-row>
       </v-container>
@@ -92,7 +92,6 @@
 <script>
 import Products from "./Products.vue";
 import { mapActions, mapGetters } from "vuex";
-import { processSubFilter } from "../../../helpers/commonHelper";
 export default {
   components: {
     Products,
@@ -100,29 +99,23 @@ export default {
   methods: {
     ...mapActions(["setSubFilter","getProducts"]),
     async processProducts() {
-      this.isProcessing = true;
       await this.getProducts({category:"Jerseys",selectedCountryCode:this.selectedCountryCode});
-      this.isProcessing = false;
     },
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products","search"]),
-     filteredProducts() {
-        return this.products.filter(movie => movie.name.toLowerCase().includes(this.search.toLowerCase()))
-     }
-  },
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products","search","isProductsLoading"]),
+      localProducts(){
+        return this.products;
+      }
+    },
+
   async created() {
     await this.processProducts();
   },
   watch: {
     async selectedCountryCode() {
       await this.processProducts();
-    },
-    selectedSubFilter(filter) {
-      this.isProcessing = true;
-      this.products = processSubFilter(filter.id, this.products);
-      this.isProcessing = false;
-    },
+    }
   },
   data() {
     return {
@@ -139,8 +132,7 @@ export default {
         { name: "Brands", subfilters: ["Nike", "Adidas"] },
         { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
         { name: "Price", subfilters: ["XL", "SM", "XXL", "XS"] },
-      ],
-      isProcessing: false,
+      ]
     };
   },
 };

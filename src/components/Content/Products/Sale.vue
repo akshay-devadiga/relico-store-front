@@ -82,7 +82,7 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <products :products="products" :isProcessing="isProcessing" />
+            <products :products="localProducts" :isProcessing="isProductsLoading" />
           </v-col>
         </v-row>
       </v-container>
@@ -92,20 +92,20 @@
 <script>
 import Products from "./Products.vue";
 import { mapActions, mapGetters } from "vuex";
-import { processSubFilter } from "../../../helpers/commonHelper";
 export default {
   components: {
     Products,
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products"]),
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products","isProductsLoading"]),
+    localProducts(){
+        return this.products;
+    }
   },
   methods: {
     ...mapActions(["setSubFilter","getProducts"]),
      async processProducts() {
-      this.isProcessing = true;
       await this.getProducts({category:"sale",selectedCountryCode:this.selectedCountryCode});
-      this.isProcessing = false;
     },
   },
   async created() {
@@ -114,11 +114,6 @@ export default {
   watch: {
     async selectedCountryCode() {
       await this.processProducts();
-    },
-    selectedSubFilter(filter) {
-      this.isProcessing = true;
-      this.products = processSubFilter(filter.id, this.products);
-      this.isProcessing = false;
     },
   },
   data() {
@@ -138,8 +133,7 @@ export default {
         { name: "Price", subfilters: ["XL", "SM", "XXL", "XS"] },
       ],
       selected: "Newest",
-      items2: ["Newest", "Price (Low to High)", "Price (High to Low)"],
-      isProcessing: false,
+      items2: ["Newest", "Price (Low to High)", "Price (High to Low)"]
     };
   },
 };
