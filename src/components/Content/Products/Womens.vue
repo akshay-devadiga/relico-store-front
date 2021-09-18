@@ -93,6 +93,7 @@
 <script>
 import Products from "./Products.vue";
 import { mapActions, mapGetters } from "vuex";
+import { filterBySearch } from "../../../helpers/commonHelper";
 export default {
   components: {
     Products,
@@ -107,10 +108,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products",'filterOptions','isProductsLoading']),
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products",'filterOptions','isProductsLoading','searchInput']),
     localProducts(){
-        return this.products;
-    }
+        return this.searchInput && this.searchInput.length>0 ? filterBySearch(this.searchInput,this.products) :this.products;
+      }
   },
   async created() {
     await this.processProducts();

@@ -44,3 +44,15 @@ export const filterProducts = (filterOptions,products) => {
  return filteredProducts;
 }
 
+export const filterBySearch = (searchText, products) => {
+    products = products.filter(product => {
+        return (
+            product.name
+            .toLowerCase()
+            .indexOf(searchText.toLowerCase()) != -1
+        );
+      });
+ return products
+}
+
+

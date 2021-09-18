@@ -93,15 +93,16 @@
 <script>
 import Products from "./Products.vue";
 import { mapActions, mapGetters } from "vuex";
+import { filterBySearch } from "../../../helpers/commonHelper";
 export default {
   components: {
     Products,
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products","isProductsLoading","filterOptions"]),
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products","isProductsLoading","filterOptions","searchInput"]),
     localProducts(){
-        return this.products;
-    }
+        return this.searchInput && this.searchInput.length>0 ? filterBySearch(this.searchInput,this.products) :this.products;
+      }
   },
   methods: {
     ...mapActions(["setSubFilter","getProducts","updateSelectedFilters"]),

@@ -28,10 +28,10 @@
           <v-autocomplete
             background-color="white"
             color="green"
-            :value="search"
+            v-model="productSearch"
             :items="products"
             item-text="name"
-            @input="setSearch"
+            @update:search-input="setSearch"
             cache-items
             flat
             hide-details
@@ -112,7 +112,8 @@ export default {
         { name: "BRANDS",route:'/categories/brands' },
         { name: "SALE",route:'/categories/sale' },
       ],
-      select: null,
+      search: null,
+      productSearch: null,
       countries: [
         {
           name: "USA",
@@ -136,12 +137,7 @@ export default {
     console.log(this)
   },
   computed:{
-    ...mapGetters(['selectedCountryCode','search','products'])
-  },
-  watch:{
-    search(val){
-      console.log(val);
-    }
+    ...mapGetters(['selectedCountryCode','searchInput','products'])
   },
   methods: {
     ...mapActions(['setCountryCode','setSearch']),

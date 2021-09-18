@@ -14,7 +14,7 @@ export default new Vuex.Store({
     subFilter:[{name:"Newest",id:1}, {name:"Price (Low to High)",id:2}, {name:"Price (High to Low)",id:3}],
     selectedSubFilter:{name:"Newest",id:1},
     products:[],
-    search:'',
+    searchInput:'',
     appliedFilters:[],
     filterOptions:[],
     isProductsLoading: false,
@@ -27,8 +27,9 @@ export default new Vuex.Store({
     setProductsLoader(state,loader) {
         state.isProductsLoading = loader;
     },
-    setSearch(state,search) {
-        state.search = search;
+    setSearch(state,searchInput) {
+        console.log("hell")
+        state.searchInput = searchInput;
     },
     setCountryCode(state,selectedCountryCode) {
         state.selectedCountryCode = selectedCountryCode;
@@ -110,9 +111,9 @@ export default new Vuex.Store({
     selectedSubFilter: state =>state.selectedSubFilter,
     products:state =>{
         let filteredOptions = JSON.parse(JSON.stringify(state.filterOptions));
-        return state.isFilterApplied && getAppliedFilters(filteredOptions).length>0? filterProducts(filteredOptions,state.products) : state.products;
+        return state.isFilterApplied && getAppliedFilters(filteredOptions).length>0? filterProducts(filteredOptions,state.products) :state.products;
     },
-    search:state =>state.search,
+    searchInput:state =>state.searchInput,
     filterOptions:state =>state.filterOptions,
     isProductsLoading:state =>state.isProductsLoading
   }
