@@ -78,8 +78,11 @@
                     <v-col cols="2" >
               <v-card max-width="200" class="pa-0 d-flex" color="white" flat>
                 <v-select
-                  v-model="selected"
-                  :items="items2"
+                  :value="selectedSubFilter"
+                  :items="subFilter"
+                  @change="setSubFilter"
+                  return-object
+                  item-text="name"
                   dense
                   solo
                 ></v-select>
@@ -123,15 +126,17 @@ import {
   getProductsByCategory
 } from "../../../ApiServices";
 import Products from "./Products.vue";
-import {mapGetters} from "vuex";
+import {mapActions,mapGetters} from "vuex";
+import {processSubFilter} from "../../../helpers/commonHelper"
 export default {
   components: {
     Products,
   },
   computed:{
-    ...mapGetters(['selectedCountryCode'])
+    ...mapGetters(['selectedCountryCode','selectedSubFilter', 'subFilter'])
   },
   methods: {
+    ...mapActions(['setSubFilter']),
     async processProducts(){
       this.products = await getProductsByCategory('sale',this.selectedCountryCode.id);
       this.products.forEach(product=>{
@@ -145,7 +150,10 @@ export default {
  watch:{
   async selectedCountryCode(){
      await this.processProducts();   
-  }
+  },
+   selectedSubFilter(filter){
+     this.products = processSubFilter(filter.id,this.products);
+   }
   },
   data() {
     return {

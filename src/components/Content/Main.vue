@@ -22,8 +22,6 @@ export default {
         { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
         { name: "Price", subfilters: ["XL", "SM", "XXL", "XS"] },
       ],
-      selected: "Newest",
-      items2: ["Newest", "Price (Low to High)", "Price (High to Low)"],
     };
   },
 };
