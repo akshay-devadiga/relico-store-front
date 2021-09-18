@@ -1,10 +1,10 @@
 import axios from "./axios";
 
-export const getProductsByCategory = async () => {
+export const getProductsByCategory = async (category,countryCode) => {
     try {
         let params = {
-            category:'Jerseys',
-            countryCode:1
+            category,
+            countryCode
         }
       const response = await axios.get(`/products`,{
         params

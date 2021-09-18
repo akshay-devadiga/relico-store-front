@@ -129,8 +129,8 @@ export default {
     Products,
   },
   methods: {
-  async processProducts(){
-      this.products = await getProductsByCategory('mens',this.selectedCountryCode.id);
+    async processProducts(){
+      this.products = await getProductsByCategory('womens',this.selectedCountryCode.id);
       this.products.forEach(product=>{
           product.Images = JSON.parse(product.Images);
       });
@@ -140,12 +140,12 @@ export default {
       ...mapGetters(['selectedCountryCode'])
   },
   async created(){
-      await this.processProducts();
+      await this.processProducts(); 
   },
-  watch:{
-    async selectedCountryCode(){
-       await this.processProducts();
-    }
+   watch:{
+        async selectedCountryCode(){
+            await this.processProducts();   
+        }
   },
   data() {
     return {

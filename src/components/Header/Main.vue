@@ -55,10 +55,12 @@
         <v-card height="40" flat color="black">
           <v-select
             solo
-            v-model="select"
+            :value="selectedCountryCode"
             background-color="black"
             :items="countries"
             item-text="name"
+            return-object
+            @change="setCountryCode"
           >
             <template v-slot:selection="{ item }">
               <i :class="['mr-2', 'em', item.flag]"></i>
@@ -93,6 +95,7 @@
   </v-app-bar>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   data() {
     return {
@@ -109,10 +112,7 @@ export default {
         { name: "SALE",route:'/categories/sale' },
       ],
       search: null,
-      select: {
-        name: "IND",
-        flag: "em-flag-in",
-      },
+      select: null,
       states: [
         "Alabama",
         "Alaska",
@@ -178,17 +178,23 @@ export default {
         {
           name: "USA",
           flag: "em-flag-us",
+          id:1
         },
         {
           name: "IND",
           flag: "em-flag-in",
+          id:2
         },
         {
           name: "AUS",
           flag: "em-flag-au",
+          id:3
         },
       ],
     };
+  },
+  computed:{
+    ...mapGetters(['selectedCountryCode'])
   },
   watch: {
     search(val) {
@@ -196,6 +202,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setCountryCode']),
     querySelections(v) {
       this.loading = true;
       // Simulated ajax query

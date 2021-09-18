@@ -128,23 +128,23 @@ export default {
   components: {
     Products,
   },
+    computed:{
+    ...mapGetters(['selectedCountryCode'])
+  },
   methods: {
-  async processProducts(){
-      this.products = await getProductsByCategory('mens',this.selectedCountryCode.id);
+    async processProducts(){
+      this.products = await getProductsByCategory('brands',this.selectedCountryCode.id);
       this.products.forEach(product=>{
           product.Images = JSON.parse(product.Images);
       });
     }
   },
-  computed:{
-      ...mapGetters(['selectedCountryCode'])
-  },
   async created(){
       await this.processProducts();
   },
-  watch:{
+    watch:{
     async selectedCountryCode(){
-       await this.processProducts();
+      await this.processProducts();
     }
   },
   data() {

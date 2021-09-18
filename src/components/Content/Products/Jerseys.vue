@@ -128,9 +128,9 @@ export default {
   components: {
     Products,
   },
-  methods: {
-  async processProducts(){
-      this.products = await getProductsByCategory('mens',this.selectedCountryCode.id);
+   methods: {
+    async processProducts(){
+      this.products = await getProductsByCategory('Jerseys',this.selectedCountryCode.id);
       this.products.forEach(product=>{
           product.Images = JSON.parse(product.Images);
       });
@@ -142,7 +142,7 @@ export default {
   async created(){
       await this.processProducts();
   },
-  watch:{
+    watch:{
     async selectedCountryCode(){
        await this.processProducts();
     }
