@@ -98,7 +98,6 @@
   </div>
 </template>
 <script>
-import { getProductsByCategory } from "../../../ApiServices";
 import Products from "./Products.vue";
 import { mapActions, mapGetters } from "vuex";
 import { processSubFilter } from "../../../helpers/commonHelper";
@@ -107,19 +106,13 @@ export default {
     Products,
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter"]),
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products"]),
   },
   methods: {
-    ...mapActions(["setSubFilter"]),
-    async processProducts() {
+    ...mapActions(["setSubFilter","getProducts"]),
+     async processProducts() {
       this.isProcessing = true;
-      this.products = await getProductsByCategory(
-        "new",
-        this.selectedCountryCode.id
-      );
-      this.products.forEach((product) => {
-        product.Images = JSON.parse(product.Images);
-      });
+      await this.getProducts({category:"new",selectedCountryCode:this.selectedCountryCode});
       this.isProcessing = false;
     },
   },
@@ -152,9 +145,6 @@ export default {
         { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
         { name: "Price", subfilters: ["XL", "SM", "XXL", "XS"] },
       ],
-      selected: "Newest",
-      items2: ["Newest", "Price (Low to High)", "Price (High to Low)"],
-      products: [],
       isProcessing: false,
     };
   },

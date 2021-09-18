@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import { getProductsByCategory } from "../ApiServices";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -21,7 +21,7 @@ export default new Vuex.Store({
     setSubFilter(state, selectedSubFilter) {
         state.selectedSubFilter = selectedSubFilter;
     },
-    setProducts(state, products) {
+    getProducts(state, products) {
         state.products = products;
     }
   },
@@ -32,13 +32,28 @@ export default new Vuex.Store({
     setSubFilter(context,payload) {
      context.commit('setSubFilter',payload);
     },
-    setProducts(context,payload) {
-     context.commit('setProducts',payload);
-    }
+    async getProducts (context,payload) {
+        let category = payload.category;
+        let selectedCountryCode = payload.selectedCountryCode.id;
+        try {
+           let products =  await getProductsByCategory(
+            category,
+            selectedCountryCode
+          );
+          products.forEach((product) => {
+            product.Images = JSON.parse(product.Images);
+          });
+           context.commit('getProducts',products);
+         }
+         catch (error) {
+          console.log(error);
+        }
+      }
   },
   getters: {
     selectedCountryCode: state =>state.selectedCountryCode,
     subFilter: state =>state.subFilter,
     selectedSubFilter: state =>state.selectedSubFilter,
+    products:state =>state.products
   }
 });
