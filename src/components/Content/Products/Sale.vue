@@ -109,7 +109,7 @@
         </v-row>
         <v-row no-gutters>
           <v-col>
-            <products :products="products" />
+            <products :products="products" :isProcessing="isProcessing"/>
           </v-col>
         </v-row>
       </v-container>
@@ -138,10 +138,12 @@ export default {
   methods: {
     ...mapActions(['setSubFilter']),
     async processProducts(){
+      this.isProcessing = true;
       this.products = await getProductsByCategory('sale',this.selectedCountryCode.id);
       this.products.forEach(product=>{
           product.Images = JSON.parse(product.Images);
       });
+      this.isProcessing = false; 
     }
   },
   async created(){
@@ -149,10 +151,13 @@ export default {
   },
  watch:{
   async selectedCountryCode(){
-     await this.processProducts();   
+     await this.processProducts();  
+     
   },
    selectedSubFilter(filter){
+     this.isProcessing = true;
      this.products = processSubFilter(filter.id,this.products);
+     this.isProcessing = false;
    }
   },
   data() {
@@ -173,7 +178,8 @@ export default {
       ],
       selected: "Newest",
       items2: ["Newest", "Price (Low to High)", "Price (High to Low)"],
-      products:[]
+      products:[],
+      isProcessing:false
     };
   },
 };
