@@ -93,6 +93,7 @@
 <script>
 import Products from "./Products.vue";
 import { mapActions, mapGetters } from "vuex";
+
 export default {
   components: {
     Products,
@@ -103,12 +104,16 @@ export default {
       await this.getProducts({category:"Jerseys",selectedCountryCode:this.selectedCountryCode});
     },
     updateSelectedFilters(){
+        console.log(this.filterOptions);
        this.updateFillters(this.filterOptions);
     }
   },
   computed: {
     ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products","search","isProductsLoading","filterOptions"]),
       localProducts(){
+        // let localProducts = this.products;
+        // let fp = JSON.parse(JSON.stringify(this.filterOptions));
+        // localProducts = filterProducts(fp, localProducts);
         return this.products;
       }
     },

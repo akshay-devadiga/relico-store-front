@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { getProductsByCategory,getSizesById,getColors,getSizes,getGenders,getBrands } from "../ApiServices";
-import { processSubFilter } from "../helpers/commonHelper";
+import { processSubFilter,filterProducts } from "../helpers/commonHelper";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -16,20 +16,12 @@ export default new Vuex.Store({
     products:[],
     search:'',
     appliedFilters:[],
-    // filterOptions: [
-    //     { name: "Gender", subfilters: [{name:"Men",value:false},  {name:"Women",value:false}] },
-    //     { name: "Brands", subfilters: [{name:"Nike",value:false},{name:"Adidas",value:false}] },
-    //     { name: "Sizes", subfilters: ["XL", "SM", "XXL", "XS"] },
-    //     { name: "Price" },
-    //   ],
     filterOptions:[],
     isProductsLoading: false 
   },
   mutations: {
     buildFilterOptions(state, filterOptions) {
         state.filterOptions = filterOptions;
-        console.log(state.filterOptions);
-        
     },
     setProductsLoader(state,loader) {
         state.isProductsLoading = loader;
@@ -114,7 +106,10 @@ export default new Vuex.Store({
     selectedCountryCode: state =>state.selectedCountryCode,
     subFilter: state =>state.subFilter,
     selectedSubFilter: state =>state.selectedSubFilter,
-    products:state =>state.products,
+    products:state =>{
+        let filteredOptions = JSON.parse(JSON.stringify(state.filterOptions));
+        return filterProducts(filteredOptions,state.products)
+    },
     search:state =>state.search,
     filterOptions:state =>state.filterOptions,
     isProductsLoading:state =>state.isProductsLoading
