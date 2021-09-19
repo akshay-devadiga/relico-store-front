@@ -25,13 +25,13 @@
       </v-col>
       <v-col cols="6" md="6">
         <v-card color="black" class="pa-1" flat>
-          <v-autocomplete
+          <v-text-field
             background-color="white"
             color="green"
             v-model="productSearch"
             :items="products"
             item-text="name"
-            @update:search-input="setSearch"
+            @input="setSearch"
             cache-items
             flat
             hide-details
@@ -48,8 +48,8 @@
               <v-slide-x-reverse-transition mode="out-in">
                 <v-icon>mdi-magnify</v-icon>
               </v-slide-x-reverse-transition>
-            </template></v-autocomplete
-          >
+            </template>
+            </v-text-field>
         </v-card>
       </v-col>
       <v-col cols="1" md="1" offset-md="1">
@@ -155,13 +155,19 @@ export default {
 <style scoped lang="scss">
 /* .v-select__selection,
 .v-select__selection--comma, */
-::v-deep .product-search .v-select__slot input {
+::v-deep .product-search .v-text-field__slot input {
   color: black !important;
 
 }
 
- ::v-deep .product-search .v-select__slot .v-input__append-inner{
+ ::v-deep .product-search .v-input__slot .v-input__append-inner{
  display:none;
-}
+}  
+
+ ::v-deep .v-menu__content{
+ display:none !important;
+}  
+
+
 </style>
 <style scoped src="../../assets/emoji.css"/> 
