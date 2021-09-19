@@ -50,7 +50,7 @@
                 <v-list-item-subtitle class="font-weight-bold text-align-left"
                   >{{ product.currencySymbol }} {{ product.price }}
                   <span class="font-weight-light product-discount"
-                    >({{ product.discount * 10 }}{{ "% OFF" }})</span
+                    >({{ product.discount  }}{{ "% OFF" }})</span
                   ></v-list-item-subtitle
                 >
               </v-list-item-content>
@@ -70,7 +70,7 @@
 
           <v-divider></v-divider>
           <v-card-actions v-show="product.isProductSelected">
-            <v-btn block class="white--text" color="primary accent-4">
+            <v-btn block class="white--text" @click="addItemToCart(product)" color="primary accent-4">
               Add to Cart
             </v-btn>
           </v-card-actions>
@@ -80,8 +80,14 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
   methods: {
+    ...mapActions(['addToCart']),
+    addItemToCart(product){
+      console.log(product,"product");
+      this.addToCart(product);
+    },
     showCart(item) {
       item.isProductSelected = !item.isProductSelected ;
     },
@@ -99,7 +105,8 @@ export default {
   data() {
     return {
       selection: null,
-      sizes: ["XS", "SM", "XL", "XXL"]
+      sizes: ["XS", "SM", "XL", "XXL"],
+      
     };
   },
 };

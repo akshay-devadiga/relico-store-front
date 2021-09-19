@@ -18,9 +18,21 @@ export default new Vuex.Store({
     appliedFilters:[],
     filterOptions:[],
     isProductsLoading: false,
-    isFilterApplied:false
+    isFilterApplied:false,
+    cart: []
   },
   mutations: {
+    addToCart(state, cartItem){
+        state.cart.push(cartItem);
+    },
+    removeFromCart(state, cartItem){
+        //eslint-disable-next-line
+        debugger;
+        const index = state.cart.indexOf(cartItem);
+        if (index > -1) {
+            state.cart.splice(index, 1);
+        }
+    },
     buildFilterOptions(state, filterOptions) {
         state.filterOptions = filterOptions;
     },
@@ -28,7 +40,6 @@ export default new Vuex.Store({
         state.isProductsLoading = loader;
     },
     setSearch(state,searchInput) {
-        console.log("hell")
         state.searchInput = searchInput;
     },
     setCountryCode(state,selectedCountryCode) {
@@ -53,6 +64,12 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    addToCart(context, payload){
+        context.commit('addToCart',payload);
+    },
+    removeFromCart(context, payload){
+        context.commit('removeFromCart',payload);
+    },
     async buildFilterOptions (context) {
         let filterOptions = [];
         try {
@@ -115,7 +132,8 @@ export default new Vuex.Store({
     },
     searchInput:state =>state.searchInput,
     filterOptions:state =>state.filterOptions,
-    isProductsLoading:state =>state.isProductsLoading
+    isProductsLoading:state =>state.isProductsLoading,
+    cart:state =>state.cart
   }
 });
 

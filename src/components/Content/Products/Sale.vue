@@ -105,7 +105,7 @@ export default {
       }
   },
   methods: {
-    ...mapActions(["setSubFilter","getProducts","updateSelectedFilters"]),
+    ...mapActions(["setSubFilter","getProducts","updateFillters"]),
      async processProducts() {
       await this.getProducts({category:"sale",selectedCountryCode:this.selectedCountryCode});
     },

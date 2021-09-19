@@ -82,9 +82,17 @@
       </v-col>
       <v-col cols="1" md="1">
         <v-card height="40" color="black" flat>
-          <v-btn icon>
+          <v-badge
+          :content="cart.length"
+          :value="cart.length"
+          color="primary"
+          overlap
+        >
+          <v-btn icon to="/cart">
             <v-icon>mdi-cart</v-icon>
-          </v-btn></v-card
+          </v-btn>
+        </v-badge>
+        </v-card
         >
       </v-col>
     </v-row>
@@ -137,7 +145,7 @@ export default {
     console.log(this)
   },
   computed:{
-    ...mapGetters(['selectedCountryCode','searchInput','products'])
+    ...mapGetters(['selectedCountryCode','searchInput','products','cart'])
   },
   methods: {
     ...mapActions(['setCountryCode','setSearch']),

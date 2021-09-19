@@ -46,8 +46,9 @@ export const filterProducts = (filterOptions,products) => {
 
 export const filterBySearch = (searchText, products) => {
     products = products.filter(product => {
+        let searchString = `${product.name} ${product.brand} ${product.price} ${product.color} ${product.discount}`;
         return (
-            product.name
+            searchString
             .toLowerCase()
             .indexOf(searchText.toLowerCase()) != -1
         );
