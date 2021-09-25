@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getProductsByCategory,getSizesById,getColors,getSizes,getGenders,getBrands } from "../ApiServices";
+import { getProductsByCategory,getSizesById,getColors,getSizes,getGenders,getBrands,getPricesById } from "../ApiServices";
 import { processSubFilter,filterProducts,getAppliedFilters } from "../helpers/commonHelper";
 Vue.use(Vuex);
 
@@ -26,8 +26,6 @@ export default new Vuex.Store({
         state.cart.push(cartItem);
     },
     removeFromCart(state, cartItem){
-        //eslint-disable-next-line
-        debugger;
         const index = state.cart.indexOf(cartItem);
         if (index > -1) {
             state.cart.splice(index, 1);
@@ -146,7 +144,11 @@ const ApiHelper = {
             var sizesOb = await getSizesById(product.id);
             if(sizesOb){
                 product.sizes = JSON.parse(sizesOb[0].sizevariants);
-            }
+            } 
+            var pricesOb = await getPricesById(product.id);
+            if(pricesOb){
+                product.prices = JSON.parse(pricesOb[0].prices);
+            } 
         }
     }
 

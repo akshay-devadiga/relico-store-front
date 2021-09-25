@@ -97,7 +97,7 @@
             </v-card>
 
             <v-card-actions class="justify-center">
-              <v-btn color="primary white--text">
+              <v-btn color="primary white--text" @click="submit">
                 Checkout
               </v-btn>
             </v-card-actions>
@@ -105,7 +105,7 @@
         </v-col>
       </v-row>
       <v-row v-else class="justify-center">
-        <v-col cols="7">
+        <v-col cols="12">
           <v-card class="d-flex mb-2 pa-5 align-self-center " outlined tile>
             <v-card-subtitle class="py-5 justify-center">
               <v-icon>mdi-cart</v-icon
@@ -117,14 +117,23 @@
         </v-col>
       </v-row>
     </v-container>
+    <StripeCheckout   
+       ref="checkoutRef"
+       mode="payment"
+      pk="pk_test_51JbPIYSJcVUVuSDRk4i7qXyNyzPnAvQPbQCYOLEeqjPfPehyl8SbRvGfhwXGfrzso3aOkE0A7f3NBZyUkU9hiPvQ00mCpfn4f2"
+      :lineItems="lineItems"
+      @loading="loading=true"
+      :amount="200"
+    />
   </v-main>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { StripeCheckout } from '@vue-stripe/vue-stripe';
 export default {
-  components: {},
+  components: {StripeCheckout},
   computed: {
-    ...mapGetters(["cart"]),
+    ...mapGetters(["cart","selectedCountryCode"]),
     total() {
       let total = 0;
       this.cart.forEach((cartItem) => {
@@ -138,9 +147,17 @@ export default {
   },
   methods: {
     ...mapActions(["buildFilterOptions", "removeFromCart"]),
+      submit () {
+      this.lineItems=[];
+      this.cart.forEach(cartItem=>{
+          let selectedPriceOb= cartItem.prices.find(price=>price.countryId==this.selectedCountryCode.id);
+          this.lineItems.push({price:selectedPriceOb.stripeId?selectedPriceOb.stripeId:selectedPriceOb.StripeId,quantity: 1});
+      });
+      this.$refs.checkoutRef.redirectToCheckout();
+    },
   },
   data() {
-    return {};
+    return {loading:false, lineItems: []};
   },
 };
 </script>
