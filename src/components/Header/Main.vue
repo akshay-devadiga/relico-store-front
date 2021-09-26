@@ -23,7 +23,7 @@
           </v-avatar>
         </v-card>
       </v-col>
-      <v-col cols="6" md="6">
+      <v-col cols="6" md="6" v-if="!$vuetify.breakpoint.xsOnly">
         <v-card color="black" class="pa-1" flat>
           <v-text-field
             background-color="white"
@@ -96,7 +96,7 @@
         >
       </v-col>
     </v-row>
-    <template v-slot:extension>
+    <template v-slot:extension  v-if="!$vuetify.breakpoint.xsOnly"> 
       <v-tabs fixed-tabs background-color="#004FC6" align-with-title>
         <v-tab v-for="i in tabs" :key="i.name" :to="i.route">{{ i.name }}</v-tab>
       </v-tabs>

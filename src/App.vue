@@ -2,7 +2,8 @@
   <v-app>
     <Header />
     <Content />
-    <Footer />
+    <Footer v-if="!$vuetify.breakpoint.xsOnly"/>
+    <BottomNavigation v-else/>
   </v-app>
 </template>
 
@@ -10,12 +11,14 @@
 import Header from "./components/Header/Main";
 import Content from "./components/Content/Main";
 import Footer from "./components/Footer/Main";
+import BottomNavigation from "./components/BottomNavigation/Main";
 export default {
   name: 'App',
   components: {
     Header,
     Content,
     Footer,
+    BottomNavigation
   },
 
   data: () => ({

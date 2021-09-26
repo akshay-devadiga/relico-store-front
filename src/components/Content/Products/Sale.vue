@@ -6,6 +6,7 @@
       permanent
       clipped
       app
+      v-if="!$vuetify.breakpoint.xsOnly"
     >
       <v-expansion-panels accordion flat class="mt-5 px-0 mx-2">
         <v-expansion-panel v-for="(item, i) in filterOptions" :key="i">
@@ -61,20 +62,20 @@
     </v-navigation-drawer>
     <v-main>
       <v-container fluid class="ma-0 pa-0">
-            <v-row class="mx-3 mt-3" justify="space-between">
-          <v-col cols="1">
-            <v-card color="white" flat>
+           <v-row class="mt-3" :class="{'mx-2':$vuetify.breakpoint.xsOnly,'mx-3':!$vuetify.breakpoint.xsOnly}"  justify="space-between">
+          <v-col cols="6" align-self="start">
+            <v-card color="white" class="d-flex shrink" flat>
                 <span class="primary--text caption"> {{$route.name.toUpperCase()}}</span>
             </v-card>
           </v-col>
-          <v-col cols="2">
-            <v-card max-width="200" class="pa-0 d-flex" color="white" flat>
+          <v-col cols="6" sm="4" md="4"  lg="3" align-self="end">
+            <v-card  class="pa-0 d-flex shrink" color="white" flat>
               <v-select
                 :value="selectedSubFilter"
                 :items="subFilter"
+                item-text="name"
                 @change="setSubFilter"
                 return-object
-                item-text="name"
                 dense
                 solo
               ></v-select>
