@@ -1,90 +1,102 @@
 <template>
   <v-main>
     <v-container fluid>
-      <v-card-title class="grey lighten-1 justify-center">
-        <span class="font-weight-bold ">Your cart</span></v-card-title
-      >
-      <v-row v-if="cart.length > 0" class="justify-center mt-3">
-        <v-col :cols="$vuetify.breakpoint.xsOnly?12:7">
-          <v-row class="justify-center">
-            <v-col v-for="cartItem in cart" :key="cartItem" cols="12">
-              <v-card class="d-flex mb-2" outlined tile>
-                <v-card flat class="pa-2 align-self-center">
-                  <v-avatar class="ma-3" size="125" tile>
-                    <v-img :src="cartItem.Images[0].fileUrl"></v-img>
-                  </v-avatar>
-                </v-card>
-                <v-card flat class="pa-2 mr-auto align-self-center">
-                  <v-card-title
-                    class="font-weight-medium"
-                    v-text="cartItem.name"
-                  ></v-card-title>
-
-                  <v-card-subtitle class="py-0">
-                    <span class="font-weight-medium">Size:</span>
-                    <span>
-                      {{ cartItem.selectedSize.Name }}
-                    </span></v-card-subtitle
-                  >
-                  <v-card-subtitle class="py-0">
-                    <span class="font-weight-medium">Brand:</span>
-                    <span>{{ cartItem.brand }}</span></v-card-subtitle
-                  >
-                  <v-card-subtitle class="py-0">
-                    <span class="font-weight-medium">Color:</span>
-                    <span>{{ cartItem.color }}</span></v-card-subtitle
-                  >
-                </v-card>
-                <v-card flat class="pa-2 align-self-center">
-                  <v-card-subtitle class="py-0">
-                    <span class="font-weight-medium">Qty:</span>
-                    <span>1</span></v-card-subtitle
-                  >
-                </v-card>
-                <v-card flat class="pa-2 align-self-center">
-                  <v-card-subtitle class="py-0">
-                    <span class="font-weight-medium">Price:</span>
-                    <span class="font-weight-medium"
-                      >{{ cartItem.currencySymbol }} {{ cartItem.price }}</span
-                    ></v-card-subtitle
-                  >
-                </v-card>
-                <v-card flat class="pa-2 align-self-center">
-                  <v-card-actions>
-                    <v-btn icon @click="removeFromCart(cartItem)">
-                      <v-icon>mdi-close</v-icon>
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-card>
-            </v-col>
-          </v-row>
+      <v-row class="mx-2">
+        <v-col cols="12">
+          <v-card-title class="grey lighten-1 justify-center">
+            <span class="font-weight-bold ">Your cart</span></v-card-title
+          >
         </v-col>
-        <v-col :cols="$vuetify.breakpoint.xsOnly?12:5">
-          <v-card class="mx-auto my-0 py-3" outlined tile max-width="374">
-                         <v-card class="d-flex justify-space-between px-2" flat tile>
-                <v-card class="pa-2" flat>
-                    <span class="font-weight-bold">Subtotal:</span>
-                </v-card>
-                <v-card class="pa-2" flat>
-                    {{ currencySymbol }} {{ total }}
-                </v-card>
+      </v-row>
+      <v-row v-if="cart.length > 0" class="justify-center my-3 mx-2">
+        <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : 7">
+          <v-list three-line>
+            <v-list-item-group
+              v-model="selected"
+              active-class="primary--text"
+              multiple
+            >
+              <template v-for="cartItem in cart">
+                <v-list-item
+                  :key="cartItem.name"
+                  class="v-sheet v-sheet--outlined my-1"
+                >
+                  <template v-slot:default>
+                    <v-list-item-avatar tile>
+                      <v-img :src="cartItem.Images[0].fileUrl"></v-img>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                      <v-list-item-title
+                        v-text="cartItem.name"
+                      ></v-list-item-title>
+
+                      <v-list-item-subtitle class="text--primary" >
+                        <span class="text-subtitle-2">Size:</span>
+                        <span>
+                          {{ cartItem.selectedSize.Name }}
+                        </span></v-list-item-subtitle
+                      >
+
+                      <v-list-item-subtitle>
+                        <span class="text-subtitle-2 text-start">Brand:</span>
+                        <span>{{ cartItem.brand }}</span></v-list-item-subtitle
+                      >
+                    </v-list-item-content>
+                     <v-list-item-content>
+              <v-list-item-title v-html="cartItem.brand"></v-list-item-title>
+              <v-list-item-subtitle v-html="cartItem.name"></v-list-item-subtitle>
+            </v-list-item-content>
+                    <v-list-item-content>
+                      <v-list-item-subtitle class="text--primary">
+                        <span class="text-subtitle-2">Qty:</span>
+                        <span>1</span></v-list-item-subtitle
+                      >
+                    </v-list-item-content>
+                    <v-list-item-content>
+                      <v-list-item-subtitle class="text--primary">
+                        <span class="text-subtitle-2">Price: </span>
+                        <span class="font-weight-light caption"
+                          >{{ cartItem.currencySymbol }}
+                          {{ cartItem.price }}</span
+                        ></v-list-item-subtitle
+                      >
+                    </v-list-item-content>
+                    <v-list-item-action>
+                      <v-btn icon @click="removeFromCart(cartItem)">
+                        <v-icon>mdi-close</v-icon>
+                      </v-btn>
+                    </v-list-item-action>
+                  </template>
+                </v-list-item>
+              </template>
+            </v-list-item-group>
+          </v-list>
+        </v-col>
+        <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : 3">
+          <v-card class="mx-auto my-3 py-3" outlined tile max-width="374">
+            <v-card class="d-flex justify-space-between px-2" flat tile>
+              <v-card class="pa-2" flat>
+                <span class="font-weight-bold">Subtotal:</span>
+              </v-card>
+              <v-card class="pa-2" flat>
+                {{ currencySymbol }} {{ total }}
+              </v-card>
             </v-card>
-                       <v-card class="d-flex justify-space-between px-2" flat tile>
-                <v-card class="pa-2" flat>
-                    <span class="font-weight-bold">Estimated shipping:</span>
-                </v-card>
-                <v-card class="pa-2" flat>
-                    {{'N/A'}}
-                </v-card>
+            <v-card class="d-flex justify-space-between px-2" flat tile>
+              <v-card class="pa-2" flat>
+                <span class="font-weight-bold">Estimated shipping:</span>
+              </v-card>
+              <v-card class="pa-2" flat>
+                {{ "N/A" }}
+              </v-card>
             </v-card>
-             <v-card class="d-flex justify-space-between px-2" flat tile>
-                <v-card class="pa-2" flat>
-                    <span class="font-weight-bold">Estimated tax:</span>
-                </v-card>
-                <v-card class="pa-2" flat>
-                    {{'N/A'}}
-                </v-card>
+            <v-card class="d-flex justify-space-between px-2" flat tile>
+              <v-card class="pa-2" flat>
+                <span class="font-weight-bold">Estimated tax:</span>
+              </v-card>
+              <v-card class="pa-2" flat>
+                {{ "N/A" }}
+              </v-card>
             </v-card>
             <v-divider class="mx-4"></v-divider>
             <v-card class="d-flex justify-space-between px-2" flat tile>
@@ -104,7 +116,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row v-else class="justify-center">
+      <v-row v-else class="justify-center  mx-2">
         <v-col cols="12">
           <v-card class="d-flex mb-2 pa-5 align-self-center " outlined tile>
             <v-card-subtitle class="py-5 justify-center">
@@ -117,23 +129,23 @@
         </v-col>
       </v-row>
     </v-container>
-    <StripeCheckout   
-       ref="checkoutRef"
-       mode="payment"
+    <StripeCheckout
+      ref="checkoutRef"
+      mode="payment"
       pk="pk_test_51JbPIYSJcVUVuSDRk4i7qXyNyzPnAvQPbQCYOLEeqjPfPehyl8SbRvGfhwXGfrzso3aOkE0A7f3NBZyUkU9hiPvQ00mCpfn4f2"
       :lineItems="lineItems"
-      @loading="loading=true"
+      @loading="loading = true"
       :amount="200"
     />
   </v-main>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { StripeCheckout } from '@vue-stripe/vue-stripe';
+import { StripeCheckout } from "@vue-stripe/vue-stripe";
 export default {
-  components: {StripeCheckout},
+  components: { StripeCheckout },
   computed: {
-    ...mapGetters(["cart","selectedCountryCode"]),
+    ...mapGetters(["cart", "selectedCountryCode"]),
     total() {
       let total = 0;
       this.cart.forEach((cartItem) => {
@@ -147,17 +159,27 @@ export default {
   },
   methods: {
     ...mapActions(["buildFilterOptions", "removeFromCart"]),
-      submit () {
-      this.lineItems=[];
-      this.cart.forEach(cartItem=>{
-          let selectedPriceOb= cartItem.prices.find(price=>price.countryId==this.selectedCountryCode.id);
-          this.lineItems.push({price:selectedPriceOb.stripeId?selectedPriceOb.stripeId:selectedPriceOb.StripeId,quantity: 1});
+    submit() {
+      this.lineItems = [];
+      this.cart.forEach((cartItem) => {
+        let selectedPriceOb = cartItem.prices.find(
+          (price) => price.countryId == this.selectedCountryCode.id
+        );
+        this.lineItems.push({
+          price: selectedPriceOb.stripeId
+            ? selectedPriceOb.stripeId
+            : selectedPriceOb.StripeId,
+          quantity: 1,
+        });
       });
       this.$refs.checkoutRef.redirectToCheckout();
     },
   },
   data() {
-    return {loading:false, lineItems: []};
+    return {
+      loading: false,
+      lineItems: [],
+    };
   },
 };
 </script>
