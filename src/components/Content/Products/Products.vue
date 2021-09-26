@@ -10,8 +10,8 @@
         ></v-skeleton-loader>
       </v-col>
     </v-row>
-    <v-row  :class="{'ma-1':$vuetify.breakpoint.xsOnly,'ma-3':!$vuetify.breakpoint.xsOnly}" v-else>
-      <v-col v-for="product in products" :key="product" cols="6" sm="6" md="3"  lg="3">
+    <v-row  :class="{'mx-1 my-5':$vuetify.breakpoint.xsOnly,'ma-3':!$vuetify.breakpoint.xsOnly}" v-else>
+      <v-col v-for="product in products" :key="product" cols="6" sm="6" md="3"  lg="3" :class="{'pa-0 px-1 pb-1':$vuetify.breakpoint.xsOnly}">
         <v-card class="mx-auto" max-width="350">
           <v-hover v-slot="{ hover }">
             <v-carousel

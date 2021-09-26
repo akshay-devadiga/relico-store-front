@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="black" dark app clipped-left>
-    <v-row>
+    <v-row justify="space-between">
       <v-col cols="2" md="2">
         <v-card
           height="40"
@@ -11,7 +11,7 @@
           <v-avatar
             max-height="40"
             height="40"
-            min-width="80"
+            width="40"
             color="white"
             class="rounded-lg"
             tile
@@ -52,7 +52,7 @@
             </v-text-field>
         </v-card>
       </v-col>
-      <v-col cols="1" md="1" offset-md="1">
+      <v-col cols="3" md="1" lg="1"  offset-md="1"  :class="{'px-0':$vuetify.breakpoint.xsOnly}">
         <v-card height="40" flat color="black">
           <v-select
             solo
@@ -73,14 +73,14 @@
           </v-select></v-card
         >
       </v-col>
-      <v-col cols="1" md="1">
+      <!-- <v-col cols="1" md="1" >
         <v-card height="40" color="black" flat>
           <v-btn icon>
             <v-icon>mdi-account</v-icon>
           </v-btn></v-card
         >
-      </v-col>
-      <v-col cols="1" md="1">
+      </v-col> -->
+      <v-col cols="2" md="1" lg="1" align-self="end">
         <v-card height="40" color="black" flat>
           <v-badge
           :content="cart.length"
