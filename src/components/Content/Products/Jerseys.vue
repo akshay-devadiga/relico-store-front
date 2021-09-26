@@ -65,7 +65,7 @@
         <v-row class="mt-3" :class="{'mx-2':$vuetify.breakpoint.xsOnly,'mx-3':!$vuetify.breakpoint.xsOnly}"  justify="space-between">
           <v-col cols="6" align-self="start">
             <v-card color="white" class="d-flex shrink" flat>
-                <span class="primary--text caption"> {{$route.name.toUpperCase()}}</span>
+                <span class="primary--text caption my-2"> {{$route.name.toUpperCase()}}</span>
             </v-card>
           </v-col>
           <v-col cols="6" sm="4" md="4"  lg="3" align-self="end">

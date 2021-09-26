@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-row class="ma-3" v-if="isProcessing">
-      <v-col v-for="i in 10" :key="i" cols="6" sm="6" md="3"  lg="3">
+    <v-row  :class="{'mx-1 my-5':$vuetify.breakpoint.xsOnly,'ma-3':!$vuetify.breakpoint.xsOnly}" v-if="isProcessing">
+      <v-col v-for="i in 10" :key="i" cols="6" sm="6" md="3"  lg="3" :class="{'pa-0 px-1 pb-1':$vuetify.breakpoint.xsOnly}">
         <v-skeleton-loader
           v-bind="attrs"
           class="mx-auto"
@@ -12,7 +12,7 @@
     </v-row>
     <v-row  :class="{'mx-1 my-5':$vuetify.breakpoint.xsOnly,'ma-3':!$vuetify.breakpoint.xsOnly}" v-else>
       <v-col v-for="product in products" :key="product" cols="6" sm="6" md="3"  lg="3" :class="{'pa-0 px-1 pb-1':$vuetify.breakpoint.xsOnly}">
-        <v-card class="mx-auto" max-width="350">
+        <v-card class="mx-auto" @click="goToProductDetails(product)" :flat="$vuetify.breakpoint.xsOnly" :outlined="$vuetify.breakpoint.xsOnly" max-width="350">
           <v-hover v-slot="{ hover }">
             <v-carousel
               :cycle="hover"
@@ -21,7 +21,7 @@
               :show-arrows="false"
             >
               <v-carousel-item v-for="(item, i) in product.Images" :key="i">
-                <v-img height="250" class="mt-2" :src="item.fileUrl"></v-img
+                <v-img  height="250" class="mt-2" :src="item.fileUrl"></v-img
               ></v-carousel-item>
             </v-carousel>
           </v-hover>
@@ -84,12 +84,26 @@ export default {
   methods: {
     ...mapActions(['addToCart']),
     addItemToCart(product){
-      console.log(product,"product");
       this.addToCart(product);
+         this.$toast.success("Product added to cart successfully", {
+              position: this.position,
+              timeout: 6000,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              hideProgressBar: true,
+              closeButton: "button",
+              icon: true,
+            });
     },
     showCart(item) {
       item.isProductSelected = !item.isProductSelected ;
     },
+    goToProductDetails(product){
+      this.$router.push({name:'productDetails',params:{id:product.id}});
+    }
   },
   props: {
     products: {
@@ -105,7 +119,7 @@ export default {
     return {
       selection: null,
       sizes: ["XS", "SM", "XL", "XXL"],
-      
+      position: "top-right"
     };
   },
 };
