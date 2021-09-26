@@ -84,7 +84,7 @@
             <v-card-subtitle class="py-5 justify-center">
               <v-icon>mdi-hanger</v-icon
               ><span class="ml-3  font-weight-medium "
-                >No results found
+                >No results found. Please clear the filters or search and try again.
               </span></v-card-subtitle
             >
           </v-card>
