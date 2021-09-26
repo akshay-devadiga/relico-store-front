@@ -3,14 +3,14 @@
     <v-container fluid>
       <v-row class="mx-2">
         <v-col cols="12">
-          <v-card-title class="grey lighten-1 justify-center">
-            <span class="font-weight-bold ">Your cart</span></v-card-title
+          <v-card-title class="grey lighten-2 justify-center">
+            <span class="font-weight-bold overline">Your cart</span></v-card-title
           >
         </v-col>
       </v-row>
       <v-row v-if="cart.length > 0" class="justify-center my-3 mx-2">
         <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : 7">
-          <v-list three-line>
+          <v-list two-line>
             <v-list-item-group
               v-model="selected"
               active-class="primary--text"
@@ -42,10 +42,7 @@
                         <span>{{ cartItem.brand }}</span></v-list-item-subtitle
                       >
                     </v-list-item-content>
-                     <v-list-item-content>
-              <v-list-item-title v-html="cartItem.brand"></v-list-item-title>
-              <v-list-item-subtitle v-html="cartItem.name"></v-list-item-subtitle>
-            </v-list-item-content>
+            
                     <v-list-item-content>
                       <v-list-item-subtitle class="text--primary">
                         <span class="text-subtitle-2">Qty:</span>

@@ -12,15 +12,16 @@
     </v-row>
     <v-row  :class="{'mx-1 my-5':$vuetify.breakpoint.xsOnly,'ma-3':!$vuetify.breakpoint.xsOnly}" v-else>
       <v-col v-for="product in products" :key="product" cols="6" sm="6" md="3"  lg="3" :class="{'pa-0 px-1 pb-1':$vuetify.breakpoint.xsOnly}">
-        <v-card class="mx-auto" @click="goToProductDetails(product)" :flat="$vuetify.breakpoint.xsOnly" :outlined="$vuetify.breakpoint.xsOnly" max-width="350">
+        <v-card class="mx-auto product-item" :flat="$vuetify.breakpoint.xsOnly" :outlined="$vuetify.breakpoint.xsOnly" max-width="350">
           <v-hover v-slot="{ hover }">
             <v-carousel
+              
               :cycle="hover"
               height="250"
               hide-delimiters
               :show-arrows="false"
             >
-              <v-carousel-item v-for="(item, i) in product.Images" :key="i">
+              <v-carousel-item @click="goToProductDetails(product)"  v-for="(item, i) in product.Images" :key="i">
                 <v-img  height="250" class="mt-2" :src="item.fileUrl"></v-img
               ></v-carousel-item>
             </v-carousel>
@@ -38,7 +39,7 @@
               </v-col>
             </v-row>
             <v-list-item three-line class="px-0">
-              <v-list-item-content>
+              <v-list-item-content @click="goToProductDetails(product)" >
                 <v-list-item-title class="text-h6 grey--text text-align-left">
                   {{ product.name }}
                 </v-list-item-title>
@@ -134,5 +135,9 @@ export default {
 
 .product-discount {
   color: #ff905a;
+}
+
+.product-item{
+  cursor: pointer;
 }
 </style>
