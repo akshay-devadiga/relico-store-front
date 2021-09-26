@@ -4,8 +4,8 @@
       <v-card-title class="grey lighten-1 justify-center">
         <span class="font-weight-bold ">Your cart</span></v-card-title
       >
-      <v-row v-if="cart.length > 0" class="justify-center">
-        <v-col cols="7">
+      <v-row v-if="cart.length > 0" class="justify-center mt-3">
+        <v-col :cols="$vuetify.breakpoint.xsOnly?12:7">
           <v-row class="justify-center">
             <v-col v-for="cartItem in cart" :key="cartItem" cols="12">
               <v-card class="d-flex mb-2" outlined tile>
@@ -60,8 +60,8 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="5">
-          <v-card class="mx-auto my-2 py-3" outlined tile max-width="374">
+        <v-col :cols="$vuetify.breakpoint.xsOnly?12:5">
+          <v-card class="mx-auto my-0 py-3" outlined tile max-width="374">
                          <v-card class="d-flex justify-space-between px-2" flat tile>
                 <v-card class="pa-2" flat>
                     <span class="font-weight-bold">Subtotal:</span>
