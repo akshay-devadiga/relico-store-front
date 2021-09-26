@@ -79,6 +79,16 @@
           </v-card-actions>
         </v-card>
       </v-col>
+      <v-col v-if="products.length==0" cols="12">
+            <v-card class="d-flex mb-2 pa-5 align-self-center " outlined tile>
+            <v-card-subtitle class="py-5 justify-center">
+              <v-icon>mdi-hanger</v-icon
+              ><span class="ml-3  font-weight-medium "
+                >No results found
+              </span></v-card-subtitle
+            >
+          </v-card>
+      </v-col>
     </v-row>
   </div>
 </template>
