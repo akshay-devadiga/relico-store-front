@@ -104,13 +104,10 @@
                 {{ currencySymbol }} {{ total }}
               </v-card>
             </v-card>
-
-            <v-card-actions class="justify-center">
-              <v-btn color="primary white--text" @click="submit">
-                Checkout
-              </v-btn>
-            </v-card-actions>
           </v-card>
+        </v-col>
+        <v-col cols="6" >
+            <register-and-checkout class="justify-center" @checkout="submit"/>
         </v-col>
       </v-row>
       <v-row v-else class="justify-center  mx-2">
@@ -127,6 +124,7 @@
       </v-row>
     </v-container>
     <StripeCheckout
+      :billingAddressCollection="'required'"
       ref="checkoutRef"
       mode="payment"
       pk="pk_test_51JbPIYSJcVUVuSDRk4i7qXyNyzPnAvQPbQCYOLEeqjPfPehyl8SbRvGfhwXGfrzso3aOkE0A7f3NBZyUkU9hiPvQ00mCpfn4f2"
@@ -139,8 +137,9 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
+import RegisterAndCheckout from "../Register/Main.vue";
 export default {
-  components: { StripeCheckout },
+  components: { StripeCheckout,RegisterAndCheckout},
   computed: {
     ...mapGetters(["cart", "selectedCountryCode"]),
     total() {
@@ -169,6 +168,8 @@ export default {
           quantity: 1,
         });
       });
+      localStorage.setItem('cart',this.cart);
+      localStorage.setItem('cart',this.cart);
       this.$refs.checkoutRef.redirectToCheckout();
     },
   },

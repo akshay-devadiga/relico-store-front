@@ -12,13 +12,13 @@
             max-height="40"
             height="40"
             width="40"
-            color="white"
+            color="#0454a3"
             class="rounded-lg"
             tile
           >
             <v-img
               contain
-              src="http://media.corporate-ir.net/media_files/IROL/17/176060/Oct18/Amazon%20logo.PNG"
+              src="https://blog.logomyway.com/wp-content/uploads/2017/01/nba-logo-1.jpg"
             ></v-img>
           </v-avatar>
         </v-card>

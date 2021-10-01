@@ -6,6 +6,7 @@
         v-for="(image) in images"
         :key="image" 
         :src="image.src"
+         :lazy-src="image.src"
       >
       </v-carousel-item>
     </v-carousel>
@@ -23,14 +24,14 @@
             :key="discountOb"
                  cols="2"
           >
-           <v-card>
+           <v-card class="discount-percentage" @click="openRandomCategory">
               <v-img
                 src="https://image.freepik.com/free-vector/yellow-background-with-halftone-lines-design_1017-30148.jpg"
                 class="white--text align-center"
                 gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.1)"
                 height="200px"
               >
-                <v-card-title  style="font-family: 'Gemunu Libre' !important;"  class="text-h1 text--white transition-swing align-center justify-center"
+                <v-card-title  style="font-family: 'Gemunu Libre' !important;"  class="text-h2 text--white transition-swing align-center justify-center"
                 v-text="`${discountOb.DiscountPercentage}%`"></v-card-title>
               </v-img>
             </v-card>
@@ -62,6 +63,16 @@ export default {
   async created(){
       this.discounts = await getDiscounts();
       this.discounts.shift();
+  },
+  methods:{
+    openRandomCategory(){
+      this.$router.push({name:'new'})
+    }
   }
 };
 </script>
+<style scoped>
+.discount-percentage{
+  cursor: pointer;
+}
+</style>
