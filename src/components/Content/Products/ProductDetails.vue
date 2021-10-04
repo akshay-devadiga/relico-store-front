@@ -80,18 +80,6 @@ export default {
   methods: {
     ...mapActions(["addToCart"]),
     addItemToCart(selectedProduct){
-         this.$toast.success("Product added to cart successfully", {
-              position: this.position,
-              timeout: 6000,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              draggablePercent: 0.6,
-              showCloseButtonOnHover: false,
-              hideProgressBar: true,
-              closeButton: "button",
-              icon: true,
-            });
       this.addToCart(selectedProduct);
     },
     showCart(){

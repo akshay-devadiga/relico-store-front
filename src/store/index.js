@@ -25,6 +25,18 @@ export default new Vuex.Store({
     addToCart(state, cartItem){
         const index = state.cart.indexOf(cartItem);
         if (index == -1) {
+            Vue.$toast.success("Product added to cart successfully", {
+                position: "top-right",
+                timeout: 6000,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButtonOnHover: false,
+                hideProgressBar: true,
+                closeButton: "button",
+                icon: true,
+              });
             state.cart.push(cartItem);
         }
         
