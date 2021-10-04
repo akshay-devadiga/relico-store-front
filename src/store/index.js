@@ -23,7 +23,11 @@ export default new Vuex.Store({
   },
   mutations: {
     addToCart(state, cartItem){
-        state.cart.push(cartItem);
+        const index = state.cart.indexOf(cartItem);
+        if (index == -1) {
+            state.cart.push(cartItem);
+        }
+        
     },
     removeFromCart(state, cartItem){
         const index = state.cart.indexOf(cartItem);
