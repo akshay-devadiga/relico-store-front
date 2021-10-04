@@ -150,6 +150,7 @@
             <h3 class=" grey--text">Almost done!</h3>
               <h3 class="caption font-weight-light mb-2">
               Please click on below button to checkout. You will be redirected to stripe checkout page.
+              Please make sure you enter your entire address along with the contact no.
             </h3>
             <v-card class="mx-auto" style="cursor:pointer" outlined flat max-width="200" @click="checkout">
            <v-list-item two-line>
