@@ -4,14 +4,16 @@
       <v-container fluid class="ma-0 pa-0">
         <v-card class="mx-auto overflow-hidden ma-2 pa-2" flat>
           <v-row>
-            <v-col :cols="$vuetify.breakpoint.xsOnly?12:selectedProduct.Images.length<=1?4:7">
+            <v-col :cols="$vuetify.breakpoint.xsOnly?12:selectedProduct.Images.length==1?4:7">
               <v-row justify="center">
                 <v-col v-for="imageOb in selectedProduct.Images" :key="imageOb.id" class="d-flex" cols="6">
                   <v-img
                     max-height="300"
+                    min-width="300"
                     contain
                     class="v-sheet--outlined"
-                    :src="imageOb.fileUrl"
+                    :src="imageOb.path"
+                    :lazy-src="imageOb.path"
                   ></v-img>
                 </v-col>
               </v-row>
@@ -38,7 +40,6 @@
               v-model="selectedProduct.selectedSize"
               active-class="primary--text text--accent-4"
               class="ml-2"
-              @change="showCart(product)"
               :column="true"
             >
               <v-chip label v-for="size in selectedProduct.sizes" @click="showCart" :key="size" :value="size">
@@ -47,19 +48,20 @@
             </v-chip-group>
                 <v-spacer></v-spacer>
               </v-card-actions>
-              <v-card-actions>
-                <v-row justify="center" v-if="showProductCart">
+      
+              <div class="pb-4 px-3 pt-0 text-caption text-start">
+                <em
+                  >{{selectedProduct && selectedProduct.description}}</em
+                >
+              </div>
+                      <v-card-actions>
+                <v-row justify="start" v-if="showProductCart">
                   <v-col cols="8" align-self="center"> <v-btn block class="white--text"  @click="addItemToCart(selectedProduct)"  color="primary accent-4">
                   Add to Cart
                 </v-btn>
                 </v-col>
                 </v-row>
               </v-card-actions>
-              <div class="pa-4 pt-0 text-caption">
-                <em
-                  >This shirt is perfect for the gym, a casual day, or an intense workout. Made of cotton, this shirt will keep you cool and dry. It has a loose, boxy fit that's flattering and doesn't hug your body too tightly. With a crew neckline and short sleeves, this shirt is perfect for a variety of outfits.</em
-                >
-              </div>
             </v-col>
           </v-row>
           
@@ -83,7 +85,7 @@ export default {
       this.addToCart(selectedProduct);
     },
     showCart(){
-      this.showProductCart=true;
+      this.showProductCart=!this.showProductCart;
     }
   },
   async created() {

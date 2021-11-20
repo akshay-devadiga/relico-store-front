@@ -10,7 +10,7 @@
     >
       <v-expansion-panels accordion flat class="mt-5 px-0 mx-2">
         <v-expansion-panel v-for="(item, i) in filterOptions" :key="i">
-          <v-expansion-panel-header flat disable-icon-rotate>
+          <v-expansion-panel-header disable-icon-rotate>
             <span class="font-weight-bold">{{ item.name }}</span>
             <template v-slot:actions>
               <v-icon large color="black"> $expand </v-icon>
@@ -28,7 +28,7 @@
               </v-col>
             </v-row>
             <v-list v-else shaped>
-             <v-list-item-group multiple>
+               <v-list-item-group multiple>
                 <template v-for="(itemFilter, i) in item.subfilters">
                   <v-list-item
                     :key="`item-${i}`"
@@ -61,8 +61,8 @@
       </v-expansion-panels>
     </v-navigation-drawer>
     <v-main>
-      <v-container fluid class="ma-0 pa-0" style="min-height: 40vh;">
-       <v-row class="mt-3" :class="{'mx-2':$vuetify.breakpoint.xsOnly,'mx-3':!$vuetify.breakpoint.xsOnly}"  justify="space-between">
+      <v-container fluid class="ma-0 pa-0">
+           <v-row class="mt-3" :class="{'mx-2':$vuetify.breakpoint.xsOnly,'mx-3':!$vuetify.breakpoint.xsOnly}"  justify="space-between">
           <v-col cols="6" align-self="start">
             <v-card color="white" class="d-flex shrink" flat>
                 <span class="primary--text caption my-2"> {{$route.name.toUpperCase()}}</span>
@@ -93,22 +93,22 @@
 </template>
 <script>
 import Products from "./Products.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { filterBySearch } from "../../../helpers/commonHelper";
 export default {
   components: {
     Products,
   },
   computed: {
-    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter", "products","isProductsLoading","filterOptions","searchInput"]),
-      localProducts(){
+    ...mapGetters(["selectedCountryCode", "selectedSubFilter", "subFilter","products","isProductsLoading","filterOptions","searchInput"]),
+    localProducts(){
         return this.searchInput && this.searchInput.length>0 ? filterBySearch(this.searchInput,this.products) :this.products;
       }
- },
+  },
   methods: {
     ...mapActions(["setSubFilter","getProducts","updateFillters"]),
-    async processProducts() {
-      await this.getProducts({category:"brands",selectedCountryCode:this.selectedCountryCode});
+     async processProducts() {
+      await this.getProducts({category:"all",selectedCountryCode:this.selectedCountryCode});
     },
     updateSelectedFilters(){
        this.updateFillters(this.filterOptions);
@@ -120,7 +120,7 @@ export default {
   watch: {
     async selectedCountryCode() {
       await this.processProducts();
-    }
+    },
   },
   data() {
     return {
@@ -132,7 +132,8 @@ export default {
           href: "breadcrumbs_link_1",
         },
       ],
-      isProcessing: false,
+      selected: "Newest",
+      items2: ["Newest", "Price (Low to High)", "Price (High to Low)"]
     };
   },
 };

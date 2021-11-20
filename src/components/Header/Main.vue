@@ -1,6 +1,33 @@
 <template>
-  <v-app-bar color="black" dark app clipped-left>
-    <v-row justify="space-between">
+  <v-app-bar color="black" dark app clipped-left style="overflow:hidden">
+    <v-row justify="space-between" v-if="isHome">
+      <v-col cols="12">
+        <v-card
+          color="black"
+          class="pa-1 d-flex justify-center"
+          flat
+        >
+         <v-card-title>
+        <v-avatar
+            color="#0454a3"
+            class="rounded-lg"
+            tile
+            max-height="40"
+          >
+          
+            <v-img
+              contain
+              aspect-ratio="1"
+              src="https://blog.logomyway.com/wp-content/uploads/2017/01/nba-logo-1.jpg"
+            ></v-img>
+          </v-avatar>
+             <span class="overline ml-3">The Jersey Store</span>
+       
+      </v-card-title>
+        </v-card>
+      </v-col>
+    </v-row>
+     <v-row justify="space-between" v-else>
       <v-col cols="2" md="2">
         <v-card
           height="40"
@@ -119,6 +146,7 @@ export default {
         // { name: "HEADWEAR" ,route:'/categories/headwear'},
         { name: "BRANDS",route:'/categories/brands' },
         { name: "SALE",route:'/categories/sale' },
+        { name: "ALL",route:'/categories/all' },
       ],
       search: null,
       productSearch: null,
@@ -145,7 +173,10 @@ export default {
     console.log(this)
   },
   computed:{
-    ...mapGetters(['selectedCountryCode','searchInput','products','cart'])
+    ...mapGetters(['selectedCountryCode','searchInput','products','cart']),
+    isHome(){
+      return this.$route.name == 'Home';
+    }
   },
   methods: {
     ...mapActions(['setCountryCode','setSearch']),

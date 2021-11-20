@@ -106,7 +106,7 @@
             </v-card>
           </v-card>
         </v-col>
-        <v-col cols="6" >
+        <v-col :cols="$vuetify.breakpoint.xsOnly?'12':'6'" >
             <register-and-checkout class="justify-center" @checkout="submit"/>
         </v-col>
       </v-row>
@@ -127,7 +127,7 @@
       :billingAddressCollection="'required'"
       ref="checkoutRef"
       mode="payment"
-      pk="pk_test_51JbPIYSJcVUVuSDRk4i7qXyNyzPnAvQPbQCYOLEeqjPfPehyl8SbRvGfhwXGfrzso3aOkE0A7f3NBZyUkU9hiPvQ00mCpfn4f2"
+      pk="pk_test_51JihAxSEvT9dfWY1r647Opnut0DdrWbIt2atdS5Z0uEaLFGKhFRH574ZIwXBIvRpC8TDmuLIN7OGnbRQNSmTYt6e00O5zPaScV"
       :lineItems="lineItems"
       @loading="loading = true"
       :amount="200"

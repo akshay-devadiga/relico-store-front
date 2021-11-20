@@ -2,8 +2,8 @@
   <v-app>
     <Header />
     <Content />
-    <Footer v-if="!$vuetify.breakpoint.xsOnly"/>
-    <BottomNavigation v-else/>
+    <Footer v-if="!mobileView"/>
+    <BottomNavigation v-if="showBottomNavigation"/>
   </v-app>
 </template>
 
@@ -20,7 +20,14 @@ export default {
     Footer,
     BottomNavigation
   },
-
+  computed:{
+     mobileView(){
+       return this.$vuetify.breakpoint.xsOnly;
+     }
+    ,showBottomNavigation(){
+      return  this.mobileView&& (this.$route.name !="Home")
+    }
+  },
   data: () => ({
     //
   }),

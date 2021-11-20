@@ -94,28 +94,29 @@
   
         <v-window-item :value="2">
                     
-          <div class="pa-4 text-center">
+          <div class="py-4 text-center">
             
             <h3 class=" grey--text">Almost done!</h3>
               <h3 class="caption font-weight-light mb-2">
               Please click on below button to checkout. You will be redirected to stripe checkout page.
             </h3>
-            <v-card class="mx-auto" style="cursor:pointer" outlined flat max-width="200" @click="checkout">
+            <v-card class="mx-auto" style="cursor:pointer"  color="#3E47B8" outlined flat max-width="300" @click="checkout">
            <v-list-item two-line>
-         <v-list-item-avatar tile size="70"
-            class="ma-0 pa-0">
+               <v-list-item-content class="ma-0 pa-0">
+          <v-list-item-title class="ma-0 pa-0">
+            <span class="overline body-1 white--text">Proceed to pay</span> 
+          </v-list-item-title>
+        </v-list-item-content>
+         <v-list-item-avatar tile size="70" height="30" width="60"
+            class="ma-0 pa-0" style="border-radius: 5px !important">
             <v-img
-              class="elevation-6 ma-0 pa-0"
+              class="elevation-6 ma-0 pa-0 white"
               contain
                    alt=""
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png"
             ></v-img>
           </v-list-item-avatar>
-        <v-list-item-content class="ma-0 pa-0">
-          <v-list-item-title class="ma-0 pa-0">
-            <span class="text-h6 font-weight-light">Checkout</span> 
-          </v-list-item-title>
-        </v-list-item-content>
+      
   
       </v-list-item></v-card>
 
@@ -145,29 +146,32 @@
         </v-btn>
       </v-card-actions>
     </v-card> 
-        <div class="pa-4 text-center" v-else>
+        <div class="py-4 text-center" v-else>
             
             <h3 class=" grey--text">Almost done!</h3>
               <h3 class="caption font-weight-light mb-2">
               Please click on below button to checkout. You will be redirected to stripe checkout page.
               Please make sure you enter your entire address along with the contact no.
             </h3>
-            <v-card class="mx-auto" style="cursor:pointer" outlined flat max-width="200" @click="checkout">
+            <v-card class="mx-auto" style="cursor:pointer" color="#3E47B8" outlined flat max-width="300" @click="checkout">
            <v-list-item two-line>
-         <v-list-item-avatar tile size="70"
+                <v-list-item-content class="ma-0 pa-0">
+          <v-list-item-title class="ma-0 pa-0">
+            <span class="overline body-1  white--text">Proceed to pay 
+       </span> 
+          </v-list-item-title>
+        </v-list-item-content>
+         <v-list-item-avatar tile size="70" height="30" width="60"
+          style="border-radius: 5px !important"
             class="ma-0 pa-0">
             <v-img
-              class="elevation-6 ma-0 pa-0"
+              class="elevation-6 ma-0 pa-0 white"
               contain
                    alt=""
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/2560px-Stripe_Logo%2C_revised_2016.svg.png"
             ></v-img>
           </v-list-item-avatar>
-        <v-list-item-content class="ma-0 pa-0">
-          <v-list-item-title class="ma-0 pa-0">
-            <span class="text-h6 font-weight-light">Checkout</span> 
-          </v-list-item-title>
-        </v-list-item-content>
+     
   
       </v-list-item></v-card>
 

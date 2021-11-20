@@ -48,10 +48,10 @@
                 }}</v-list-item-subtitle>
                 <v-list-item-subtitle class="font-weight-bold text-align-left"
                   >{{ product.currencySymbol }} {{ product.price }}
-                   <span class="font-weight-light grey--text text-decoration-line-through"
+                   <span  v-if="product.discount!=0" class="font-weight-light grey--text text-decoration-line-through"
                     >{{ product.currencySymbol }} {{ product.price+(product.discount *(product.price/100))  }}</span
                   >
-                  <span class="ml-1 font-weight-light product-discount"
+                  <span  v-if="product.discount!=0" class="ml-1 font-weight-light product-discount"
                     >({{ product.discount  }}{{ "% OFF" }})</span
                   ></v-list-item-subtitle
                 >

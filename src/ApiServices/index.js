@@ -6,7 +6,7 @@ export const getProductsByCategory = async (category,countryCode) => {
             category,
             countryCode
         }
-      const response = await axios.get(`/products`,{
+      const response = await axios.get(`/products/categories`,{
         params
       });
       return response.data;
@@ -163,4 +163,57 @@ export const uploadFile = async (files) => {
 }
 
 
+export const getCarouselImages = async () => {
+  try {
+    const response = await axios.get(`/carouselImages`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
+export const getPanelImages = async () => {
+  try {
+    const response = await axios.get(`/panelImages`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const getOfferImages = async () => {
+  try {
+    const response = await axios.get(`/offerImages`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+/*
+
+export const getDashboardCategories = async () => {
+  try {
+    const response = await axios.get(`/dashboardCategories`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const getDashboardCustomerRatings = async () => {
+  try {
+    const response = await axios.get(`/dashboardCustomerRatings`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const getDashboardCarouselImages = async () => {
+  try {
+    const response = await axios.get(`/dashboardCarouselImages`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}*/

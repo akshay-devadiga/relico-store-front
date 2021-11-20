@@ -61,7 +61,7 @@
       </v-expansion-panels>
     </v-navigation-drawer>
     <v-main>
-      <v-container fluid class="ma-0 pa-0">
+      <v-container fluid class="ma-0 pa-0" style="min-height: 40vh;">
         <v-row class="mt-3" :class="{'mx-2':$vuetify.breakpoint.xsOnly,'mx-3':!$vuetify.breakpoint.xsOnly}"  justify="space-between">
           <v-col cols="6" align-self="start">
             <v-card color="white" class="d-flex shrink" flat>
