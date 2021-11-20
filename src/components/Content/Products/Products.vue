@@ -22,7 +22,7 @@
               :show-arrows="false"
             >
               <v-carousel-item @click="goToProductDetails(product)"  v-for="(item, i) in product.Images" :key="i">
-                <v-img  height="250" class="mt-2" :src="item.fileUrl"></v-img
+                <v-img  height="250" class="mt-2" :src="item.path"></v-img
               ></v-carousel-item>
             </v-carousel>
           </v-hover>
