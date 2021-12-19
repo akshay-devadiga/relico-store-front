@@ -79,7 +79,7 @@
         tile>
 
         <v-card-text class="py-2 white--text text-center">
-          Copyright © 2021 <strong>TheJerseyStore</strong>
+          Copyright © 2021 <strong>Relico Ecommerce</strong>
         </v-card-text>
           </v-card>
           </v-col>

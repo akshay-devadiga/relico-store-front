@@ -9,19 +9,20 @@
         >
          <v-card-title>
         <v-avatar
-            color="#0454a3"
             class="rounded-lg"
             tile
-            max-height="40"
+            height="80"
+             width="150"
           >
           
             <v-img
               contain
-              aspect-ratio="1"
-              src="https://blog.logomyway.com/wp-content/uploads/2017/01/nba-logo-1.jpg"
+                    height="80"
+             width="150"
+              src="images/logo.png"
             ></v-img>
           </v-avatar>
-             <span class="overline ml-3">The Jersey Store</span>
+             <span class="overline ml-3">Beta</span>
        
       </v-card-title>
         </v-card>
@@ -32,21 +33,26 @@
         <v-card
           height="40"
           color="black"
-          class="pa-1 d-flex justify-center"
+          class="pa-2 d-flex justify-center"
           flat
         >
           <v-avatar
             max-height="40"
-            height="40"
-            width="40"
-            color="#0454a3"
+            height="30"
+            width="120"
+            color="white"
             class="rounded-lg"
             tile
           >
-            <v-img
+           
+              
+             <v-img
               contain
-              src="https://blog.logomyway.com/wp-content/uploads/2017/01/nba-logo-1.jpg"
+                height="35"
+            width="120"
+              src="/images/logo.png"
             ></v-img>
+         
           </v-avatar>
         </v-card>
       </v-col>

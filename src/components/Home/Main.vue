@@ -148,16 +148,18 @@
           >
            <v-card flat class="">
                <v-avatar
-            color="#0454a3"
             class="rounded-lg"
             tile
-            max-height="40"
+            max-height="350"
+             height="150"
+             width="150"
           >
           
             <v-img
               contain
-              aspect-ratio="1"
-              src="https://blog.logomyway.com/wp-content/uploads/2017/01/nba-logo-1.jpg"
+                   height="150"
+             width="150"
+              src="/images/logo.png"
             ></v-img>
           </v-avatar>
             </v-card>
@@ -168,27 +170,11 @@
           >
            <v-card flat class="">
                <p class="display-1 text-start">
-        About The Jersey Store
+        About Relico Ecommerce
       </p>
               <p class="text-justify">
-      Stateside Sports is the home of U.S Sport. We stock the best range of NBA, MLB, NFL & NHL and the finest selection of American premium streetwear. Inspired by the lifestyle, culture & contest of U.S sports, Stateside Sports delivers a unique retail experience, with our famous curved cap walls and world-renowned six screen Jumbotrons.
+      The light ecommerce product that allows users to set different prices for a product, that vary depending on the customer's country.
 
-    </p>
-      <p class="text-justify">
-   
-Stateside Sports offers the latest and limited releases from Nike, Jordan, Mitchell & Ness, Majestic, New Era, 47 Brand and many others. We procure the best selection of Official on Court, Authentic Replicas and lifestyle products that is unmatched by our competitors.
-
-    </p>
-      <p class="text-justify">
-   
-With our House of Headwear, we offer the biggest range of caps in the market, thousands of styles, making us the number one headwear destination. Featuring the best styles and brands, from the world’s greatest playground, at Stateside Sports, we work closely with New Era, Mitchell & Ness and 47 Brand, to deliver the ultimate cap selection.
-
-    </p>
-      <p class="text-justify">
-
-Our team here at Stateside Sports ensures you’re getting a premium online shopping experience with our hand-picked ranges, bringing you the best of U.S sports and lifestyle apparel and headwear, not to mention Stateside Sports exclusives, right to your door.
-
-Grab one of our Best.Gift.Ever Gift Cards and Shop now, pay later with Afterpay!
     </p>
             </v-card>
           </v-col>

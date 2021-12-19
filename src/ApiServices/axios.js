@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
-  baseURL: "http://localhost:8081/api",
+  baseURL: "https://api-prod.thejerseystores.com/api",
   //baseURL: "https://api-prod.thejerseystores.com/api"
 });
 export default instance;
