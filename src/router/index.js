@@ -108,8 +108,9 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: '/relico-store-front/',
   routes
 })
-//  base: '/relico-store-front/',
+// base: '/relico-store-front/',
+// https://stackoverflow.com/questions/53162491/how-to-change-basepath-on-deployment-of-vue-app
 export default router
