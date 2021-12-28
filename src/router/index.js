@@ -111,5 +111,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
+//  base: '/relico-store-front/',
 export default router
